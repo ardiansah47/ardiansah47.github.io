@@ -1,0 +1,11 @@
+{
+  // Tailwind v4 at-rules (@theme, @custom-variant, @apply) aren't known to the
+  // built-in CSS language server — silence the "Unknown at rule" noise.
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+
+  // This is a faithful pixel port of an existing design; arbitrary px values
+  // (e.g. py-[90px], mt-[42px]) are intentional and read more clearly than
+  // fractional scale steps (py-22.5, mt-10.5), so don't nudge to "canonicalize".
+  "tailwindCSS.lint.suggestCanonicalClasses": "ignore"
+}

@@ -1,26 +1,68 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Dark mode is driven by the data-theme attribute the toggle/inline-script set. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ---- design tokens -------------------------------------------------------
+   The palette lives in CSS variables so it can flip per theme; `@theme inline`
+   maps each to a Tailwind color/font utility that references the variable
+   directly (e.g. `text-ink` -> color: var(--ink)), so dark mode just works. */
+:root{
+  --bg:#f4f2ec; --surface:#faf8f3; --surface-2:#efece4;
+  --ink:#1b1916; --ink-2:#56524a; --ink-3:#928d80;
+  --line:#e3dfd2; --line-2:#d3cebf;
+  --accent:oklch(0.80 0.155 88);            /* signature highlighter — amber */
+  --accent-deep:oklch(0.52 0.13 70);         /* darker accent for light-theme text/links */
+  --accent-ink:var(--accent-deep);           /* readable accent — light theme */
+  --maxw:1080px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+[data-theme="dark"]{
+  --bg:#15140f; --surface:#1c1a15; --surface-2:#232019;
+  --ink:#f1eee4; --ink-2:#aaa493; --ink-3:#6e6a5d;
+  --line:#2b2820; --line-2:#3a362d;
+  --accent-ink:var(--accent);                /* dark theme: use the bright highlighter */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme inline{
+  --color-bg:var(--bg);
+  --color-surface:var(--surface);
+  --color-surface-2:var(--surface-2);
+  --color-ink:var(--ink);
+  --color-ink-2:var(--ink-2);
+  --color-ink-3:var(--ink-3);
+  --color-line:var(--line);
+  --color-line-2:var(--line-2);
+  --color-accent:var(--accent);
+  --color-accent-ink:var(--accent-ink);
+  --font-display:var(--font-space-grotesk), system-ui, sans-serif;
+  --font-body:var(--font-hanken-grotesk), system-ui, sans-serif;
+  --font-mono:var(--font-space-mono), ui-monospace, monospace;
+  --font-serif:var(--font-newsreader), Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ---- base ----------------------------------------------------------------
+   Everything else is expressed as Tailwind utility classes in the markup.
+   What stays here are page-wide base styles, not component styling. */
+@layer base{
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:var(--font-body);font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;letter-spacing:.1px;
+    transition:background .4s var(--ease), color .4s var(--ease);
   }
-}
+  /* inline <b> emphasis inside body copy reads in the primary ink */
+  b{color:var(--ink);font-weight:600;}
+  ::selection{background:color-mix(in oklch, var(--accent) 60%, transparent);color:var(--ink);}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* paper grain — a data-URI SVG background isn't practical as a utility */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+  html[data-theme="dark"] body::before{mix-blend-mode:screen;opacity:.4;}
+
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} }
 }

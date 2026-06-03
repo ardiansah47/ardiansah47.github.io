@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indra Ardiansah — Frontend Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&family=Newsreader:ital,opsz,wght@1,6..72,300;1,6..72,400;0,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f2ec; --surface:#faf8f3; --surface-2:#efece4;
+    --ink:#1b1916; --ink-2:#56524a; --ink-3:#928d80;
+    --line:#e3dfd2; --line-2:#d3cebf;
+    --accent:oklch(0.80 0.155 88);            /* signature highlighter — amber */
+    --accent-deep:oklch(0.52 0.13 70);         /* darker accent for light-theme text/links */
+    --accent-ink:var(--accent-deep);           /* readable accent — light theme */
+    --font-display:"Space Grotesk";
+    --font-body:"Hanken Grotesk", system-ui, sans-serif;
+    --font-mono:"Space Mono", ui-monospace, monospace;
+    --font-serif:"Newsreader", Georgia, serif;
+    --maxw:1080px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  html[data-theme="dark"]{
+    --bg:#15140f; --surface:#1c1a15; --surface-2:#232019;
+    --ink:#f1eee4; --ink-2:#aaa493; --ink-3:#6e6a5d;
+    --line:#2b2820; --line-2:#3a362d;
+    --accent-ink:var(--accent);                /* dark theme: use the bright highlighter */
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--font-body);font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;letter-spacing:.1px;
+    transition:background .4s var(--ease), color .4s var(--ease);
+  }
+  ::selection{background:color-mix(in oklch, var(--accent) 60%, transparent);color:var(--ink);}
+  a{color:inherit;}
+
+  /* paper grain */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+  html[data-theme="dark"] body::before{mix-blend-mode:screen;opacity:.4;}
+
+  /* drifting blurred orb — repositions per active section */
+  .orb{position:fixed;z-index:0;pointer-events:none;width:48vw;max-width:620px;aspect-ratio:1;border-radius:50%;
+    background:radial-gradient(circle at 50% 50%, color-mix(in oklch, var(--accent) 42%, transparent), transparent 68%);
+    filter:blur(72px);opacity:.5;
+    left:0;top:0;transform:translate3d(var(--ox,60vw),var(--oy,8vh),0);
+    transition:transform 1.3s var(--ease),opacity 1.3s var(--ease);will-change:transform;}
+  html[data-theme="dark"] .orb{opacity:.42;filter:blur(86px);}
+  @media (prefers-reduced-motion:reduce){ .orb{transition:none;} }
+  @media (max-width:760px){ .orb{width:80vw;filter:blur(56px);opacity:.4;} }
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;position:relative;z-index:2;}
+
+  /* ---------------- header ---------------- */
+  header{position:sticky;top:0;z-index:30;
+    background:transparent;
+    transition:padding .3s var(--ease);}
+  .hbar{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;height:74px;transition:height .3s var(--ease);}
+  header.scrolled .hbar{height:66px;}
+  .mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.5px;}
+  /* centered nav — morphs into a floating pill on scroll */
+  nav.sect{display:flex;align-items:center;gap:24px;padding:8px 12px 8px 22px;border-radius:30px;
+    border:1px solid transparent;background:transparent;
+    transition:background .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease),padding .35s var(--ease),backdrop-filter .35s var(--ease);}
+  header.scrolled nav.sect{
+    background:color-mix(in oklch, var(--bg) 72%, transparent);
+    border-color:var(--line);
+    box-shadow:0 8px 26px -14px rgba(0,0,0,.4);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
+  nav.sect a{font-family:var(--font-mono);font-size:12px;color:var(--ink-2);text-decoration:none;
+    letter-spacing:.4px;position:relative;padding:4px 0;transition:color .2s;}
+  nav.sect a .n{color:var(--accent-ink);}
+  nav.sect a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1.5px;background:var(--ink);transition:right .25s var(--ease);}
+  nav.sect a:hover{color:var(--ink);}
+  nav.sect a:hover::after,nav.sect a.active::after{right:0;}
+  .nav-sep{width:1px;height:18px;background:var(--line-2);flex:none;}
+  .status{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11.5px;color:var(--ink-2);}
+  .live{width:8px;height:8px;border-radius:50%;background:#3fae6a;box-shadow:0 0 0 0 rgba(63,174,106,.5);animation:pulse 2.4s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(63,174,106,.45);}70%{box-shadow:0 0 0 7px rgba(63,174,106,0);}100%{box-shadow:0 0 0 0 rgba(63,174,106,0);}}
+
+  /* minimal icon theme toggle — lives inside the nav pill */
+  .theme-toggle{appearance:none;-webkit-appearance:none;cursor:pointer;line-height:0;margin:0;padding:0;
+    display:flex;align-items:center;justify-content:center;width:30px;height:30px;
+    color:var(--ink-2);border:0;background:transparent;border-radius:8px;
+    transition:color .25s var(--ease),background .25s var(--ease);}
+  .theme-toggle:hover{color:var(--ink);background:var(--surface-2);}
+  .theme-toggle:focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px;}
+  .tt-icon{display:block;}
+  .tt-icon .tt-sun,.tt-icon .tt-moon{transition:opacity .35s var(--ease),transform .45s var(--ease);transform-origin:center;}
+  .tt-icon .tt-moon{opacity:0;transform:rotate(-60deg) scale(.6);}
+  .tt-icon .tt-sun{opacity:1;}
+  .tt-icon .tt-rays{transition:opacity .3s var(--ease);}
+  html[data-theme="dark"] .tt-icon .tt-sun{opacity:0;transform:rotate(60deg) scale(.6);}
+  html[data-theme="dark"] .tt-icon .tt-moon{opacity:1;transform:none;color:var(--accent-ink);}
+
+  /* ---------------- hero ---------------- */
+  .hero{padding:90px 0 90px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-3);margin-bottom:26px;}
+  .hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(52px,9vw,108px);line-height:.94;
+    letter-spacing:-3px;margin:0;}
+  .hero .role{font-family:var(--font-display);font-weight:500;font-size:clamp(20px,3vw,30px);
+    letter-spacing:-.4px;margin:22px 0 0;color:var(--ink-2);}
+  .hero .tagline{font-size:clamp(20px,2.6vw,27px);line-height:1.4;font-weight:300;margin:30px 0 0;max-width:30ch;}
+  .hero .tagline .ed{font-family:var(--font-serif);font-style:italic;font-weight:400;white-space:nowrap;}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:42px;}
+
+  /* highlighter mark */
+  .mk{position:relative;white-space:nowrap;padding:0 3px;color:var(--ink);}
+  .mk::before{content:"";position:absolute;left:0;right:0;bottom:.08em;height:.52em;z-index:-1;
+    background:var(--accent);border-radius:2px 6px 3px 7px;
+    transform:scaleX(0);transform-origin:left center;transition:transform .7s var(--ease);}
+  .reveal.in .mk::before, .ri.in .mk::before{transform:scaleX(1);}
+  .mk.d2::before{transition-delay:.18s;}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:13px;
+    text-decoration:none;padding:13px 20px;border-radius:11px;border:1.5px solid var(--ink);
+    transition:.2s var(--ease);letter-spacing:.3px;}
+  .btn.primary{background:var(--ink);color:var(--bg);}
+  .btn.primary:hover{transform:translateY(-2px);box-shadow:4px 6px 0 var(--line-2);}
+  .btn.ghost:hover{background:var(--surface-2);transform:translateY(-2px);}
+  .btn .ar{transition:transform .2s var(--ease);}
+  .btn:hover .ar{transform:translate(3px,-3px);}
+
+  /* ---------------- section scaffold ---------------- */
+  section.blk{padding:90px 0;border-bottom:1px solid var(--line);}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:54px;}
+  .sec-head .num{font-family:var(--font-mono);font-size:13px;color:var(--accent-ink);letter-spacing:1px;}
+  .sec-head h2{font-family:var(--font-display);font-weight:600;font-size:clamp(28px,4vw,40px);letter-spacing:-1px;margin:0;}
+  .sec-head .rule{display:none;}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:1fr;gap:24px;max-width:760px;}
+  .about-grid p{margin:0;font-size:19px;line-height:1.66;color:var(--ink-2);}
+  .about-grid p b{color:var(--ink);font-weight:600;}
+  .about-grid .mk{color:var(--ink);}
+
+  /* skills */
+  .skills{display:flex;flex-direction:column;gap:24px;}
+  .skill-block{display:grid;grid-template-columns:170px 1fr;gap:36px;align-items:baseline;}
+  .skills .grp-l{font-family:var(--font-mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-3);padding-top:8px;}
+  .skills .grp-i{display:flex;flex-wrap:wrap;gap:10px;}
+  .pill{font-family:var(--font-mono);font-size:13.5px;padding:9px 15px;border:1px solid var(--line-2);border-radius:30px;
+    background:var(--surface);transition:.2s var(--ease);cursor:default;}
+  .pill:hover{border-color:var(--ink);transform:translateY(-2px);}
+
+  /* experience */
+  .xp-co{margin-bottom:46px;}
+  .xp-co:last-child{margin-bottom:0;}
+  .xp-co-name{font-family:var(--font-display);font-size:22px;font-weight:600;letter-spacing:-.3px;
+    padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:10px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;}
+  .xp-co-name .meta{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:.5px;font-weight:400;}
+  .xp-role{display:grid;grid-template-columns:180px 1fr;gap:26px;padding:20px 16px;border-radius:12px;
+    transition:background .2s var(--ease);}
+  .xp-role:hover{background:var(--surface);}
+  .xp-role .date{font-family:var(--font-mono);font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-3);padding-top:6px;white-space:nowrap;}
+  .xp-role .rt{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:19px;font-weight:600;letter-spacing:-.2px;}
+  .xp-role .now-tag{font-family:var(--font-mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--ink);background:var(--accent);border-radius:5px;padding:3px 7px;}
+  .xp-role .rd{color:var(--ink-2);margin-top:8px;font-size:16px;line-height:1.55;max-width:62ch;}
+  .xp-role .rd b{color:var(--ink);font-weight:600;}
+
+  /* projects */
+  .pj{display:grid;grid-template-columns:150px 1fr auto;gap:28px;align-items:center;
+    padding:26px 16px;text-decoration:none;color:inherit;
+    transition:background .2s var(--ease),transform .2s var(--ease);position:relative;}
+  .pj + .pj::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--line);}
+  .pj:hover{background:var(--surface);border-radius:14px;}
+  .pj-shot{height:94px;border-radius:9px;border:1px solid var(--line-2);overflow:hidden;position:relative;
+    background:var(--cov, var(--surface-2));background-size:cover;background-position:center;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);transition:transform .25s var(--ease);}
+  .pj:hover .pj-shot{transform:scale(1.015);}
+  .pj-title{font-family:var(--font-display);font-size:22px;font-weight:600;letter-spacing:-.4px;display:flex;align-items:center;gap:10px;}
+  .pj-title .ar{display:none;}
+  .pj-desc{color:var(--ink-2);margin-top:7px;font-size:16px;line-height:1.5;max-width:56ch;}
+  .pj-tech{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:12px;font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:.4px;}
+  .pj-year{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:.8px;align-self:start;padding-top:6px;}
+
+  /* contact */
+  .contact{padding:90px 0 100px;}
+  .ct-lead{font-size:21px;line-height:1.6;color:var(--ink-2);max-width:54ch;}
+  .ct-email{display:inline-block;font-family:var(--font-display);font-weight:700;
+    font-size:clamp(26px,4.2vw,44px);letter-spacing:-1.4px;text-decoration:none;margin:26px 0 0;line-height:1.1;color:var(--ink);}
+  .ct-email .mk::before{height:.32em;bottom:.06em;}
+  .ct-links{display:flex;flex-wrap:wrap;gap:14px 30px;margin-top:46px;}
+  .ct-link{font-family:var(--font-mono);font-size:13px;text-decoration:none;color:var(--ink);
+    display:inline-flex;align-items:center;gap:8px;padding-bottom:3px;border-bottom:1.5px solid var(--line-2);transition:.2s var(--ease);}
+  .ct-link .lbl{color:var(--ink-3);}
+  .ct-link:hover{border-color:var(--ink);}
+  .ct-link:hover .lbl{color:var(--accent-ink);}
+  footer{padding:34px 0 50px;}
+  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-family:var(--font-mono);font-size:11.5px;color:var(--ink-3);}
+
+  /* ---------------- project modal (Notion-style peek) ---------------- */
+  .pm{position:fixed;inset:0;z-index:60;display:none;}
+  .pm.open{display:block;}
+  .pm-backdrop{position:absolute;inset:0;background:color-mix(in oklch, #000 58%, transparent);
+    opacity:0;transition:opacity .3s var(--ease);}
+  .pm.show .pm-backdrop{opacity:1;}
+  .pm-scroll{position:absolute;inset:0;overflow-y:auto;display:flex;justify-content:center;padding:46px 22px 60px;}
+  .pm-panel{position:relative;width:min(860px,100%);height:max-content;margin:auto;
+    background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    box-shadow:0 40px 90px -28px rgba(0,0,0,.55);
+    opacity:0;transform:translateY(10px) scale(.99);transition:opacity .26s var(--ease),transform .26s var(--ease);}
+  .pm.show .pm-panel{opacity:1;transform:none;}
+  .pm-cover{height:280px;width:100%;background:var(--surface-2);background-size:cover;background-position:center;}
+  .pm-close{position:absolute;top:18px;right:18px;z-index:4;width:34px;height:34px;border-radius:9px;
+    border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    background:color-mix(in oklch,#000 32%, transparent);color:#fff;backdrop-filter:blur(6px);
+    font-size:17px;line-height:1;transition:background .2s var(--ease),transform .2s var(--ease);}
+  .pm-close:hover{background:color-mix(in oklch,#000 50%, transparent);transform:scale(1.06);}
+  .pm-body{padding:40px 56px 60px;position:relative;}
+  .pm-title{font-family:var(--font-display);font-weight:700;font-size:clamp(30px,5vw,46px);letter-spacing:-1.4px;margin:0;line-height:1.04;}
+  .pm-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 26px;margin:30px 0 0;}
+  .pm-field .k{display:flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-3);margin-bottom:9px;}
+  .pm-field .k svg{width:13px;height:13px;opacity:.8;}
+  .pm-field .v{font-size:15px;color:var(--ink);}
+  .pm-person{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;}
+  .pm-ava{width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--bg);font-family:var(--font-display);
+    font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;letter-spacing:.3px;}
+  .pm-tag{display:inline-block;font-size:13px;padding:4px 11px;border-radius:6px;font-family:var(--font-body);font-weight:500;white-space:nowrap;}
+  .pm-tag.role{background:color-mix(in oklch,#5b9e6f 26%, var(--surface));color:color-mix(in oklch,#2f7a48 70%, var(--ink));}
+  .pm-tag.cat{background:color-mix(in oklch,#5b86c4 26%, var(--surface));color:color-mix(in oklch,#3566a8 70%, var(--ink));}
+  html[data-theme="dark"] .pm-tag.role{color:#8fd6a6;}
+  html[data-theme="dark"] .pm-tag.cat{color:#9fc0ef;}
+  .pm-sub{display:flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-3);margin:34px 0 14px;}
+  .pm-sub svg{width:14px;height:14px;}
+  .pm-stack{display:flex;flex-wrap:wrap;gap:9px;}
+  .pm-stack span{font-family:var(--font-mono);font-size:12.5px;padding:7px 13px;border:1px solid var(--line-2);border-radius:8px;background:var(--bg);}
+  .pm-desc p{margin:0 0 14px;color:var(--ink-2);font-size:16.5px;line-height:1.65;max-width:64ch;}
+  .pm-desc p:last-child{margin-bottom:0;}
+  .pm-desc b{color:var(--ink);font-weight:600;}
+  body.pm-lock{overflow:hidden;}
+  @media (max-width:680px){
+    .pm-body{padding:34px 26px 44px;}
+    .pm-meta{grid-template-columns:1fr 1fr;}
+    .pm-cover{height:200px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .pm-backdrop,.pm-panel{transition:none;}
+  }
+
+  /* reveal — per-item staggered */
+  .ri{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease);}
+  .ri.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    .ri{opacity:1!important;transform:none!important;transition:none;}
+    .mk::before{transform:scaleX(1)!important;}
+    html{scroll-behavior:auto;}
+  }
+  @media print{
+    .ri{opacity:1!important;transform:none!important;}
+    .mk::before{transform:scaleX(1)!important;}
+  }
+
+  @media (max-width:760px){
+    .wrap{padding:0 22px;}
+    nav.sect{display:none;}
+    .hero{padding:84px 0 70px;}
+    .skills{gap:8px 0;}
+    .skill-block{grid-template-columns:1fr;gap:6px;}
+    .skills .grp-l{padding-top:18px;}
+    .skill-block + .skill-block .grp-l{border-top:1px solid var(--line);}
+    .xp-role{grid-template-columns:1fr;gap:6px;}
+    .pj{grid-template-columns:1fr;gap:14px;}
+    .pj-shot{height:150px;}
+    .pj-year{padding-top:0;}
+  }
+</style>
+</head>
+<body>
+  <div class="orb" id="orb"></div>
+  <header id="hdr">
+    <div class="wrap hbar">
+      <nav class="sect" id="nav">
+        <a href="#about"><span class="n">01</span> About</a>
+        <a href="#skills"><span class="n">02</span> Skills</a>
+        <a href="#experience"><span class="n">03</span> Experience</a>
+        <a href="#projects"><span class="n">04</span> Projects</a>
+        <a href="#contact"><span class="n">05</span> Contact</a>
+        <span class="nav-sep"></span>
+        <button class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode" title="Toggle theme">
+        <svg class="tt-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+          <g class="tt-sun">
+            <circle cx="12" cy="12" r="4.2"></circle>
+            <g class="tt-rays"><line x1="12" y1="2.5" x2="12" y2="4.6"></line><line x1="12" y1="19.4" x2="12" y2="21.5"></line><line x1="2.5" y1="12" x2="4.6" y2="12"></line><line x1="19.4" y1="12" x2="21.5" y2="12"></line><line x1="5.2" y1="5.2" x2="6.7" y2="6.7"></line><line x1="17.3" y1="17.3" x2="18.8" y2="18.8"></line><line x1="18.8" y1="5.2" x2="17.3" y2="6.7"></line><line x1="6.7" y1="17.3" x2="5.2" y2="18.8"></line></g>
+          </g>
+          <path class="tt-moon" d="M20 14.5A8 8 0 0 1 9.5 4 7 7 0 1 0 20 14.5Z"></path>
+        </svg>
+      </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero" data-screen-label="Hero">
+      <div class="wrap reveal">
+        <div class="eyebrow">Hello, my name is</div>
+        <h1>Indra<br>Ardiansah</h1>
+        <div class="role">Sr. Frontend Engineer</div>
+        <p class="tagline">I build <span class="mk">accessible</span> interfaces and <span class="mk d2">user-centered</span> <span class="ed">applications</span>.</p>
+        <div class="hero-cta">
+          <a href="#contact" class="btn primary">Get in touch <span class="ar">↗</span></a>
+          <a href="#" class="btn ghost">Download CV <span class="ar">↓</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="blk" id="about" data-screen-label="About">
+      <div class="wrap reveal">
+        <div class="sec-head"><span class="num">01</span><h2>About</h2><span class="rule"></span></div>
+        <div class="about-grid">
+          <p>I'm a frontend engineer with <b>7+ years</b> of experience building <span class="mk">accessible</span>, high-performance web applications. I care about the small details that make an interface feel effortless, and I do my best work where thoughtful design meets <b>clean, scalable code</b>.</p>
+          <p>Currently, I'm the <b>Frontend Lead at Appliance.io</b>, a SaaS platform for appliance retailers. I shape our frontend architecture and design system — leading work across components, tooling, and patterns to keep our products fast, consistent, and accessible.</p>
+          <p>Before that, I spent years crafting product UIs across startups and studios with Vue, Nuxt, React, and Next.js — experiences that shaped how I build products that are both <b>well-crafted</b> and widely usable.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="blk" id="skills" data-screen-label="Skills & Stack">
+      <div class="wrap reveal">
+        <div class="sec-head"><span class="num">02</span><h2>Skills &amp; Stack</h2><span class="rule"></span></div>
+        <div class="skills">
+          <div class="skill-block"><div class="grp-l">Frameworks</div><div class="grp-i">
+            <span class="pill">Vue.js</span><span class="pill">Nuxt.js</span><span class="pill">React.js</span><span class="pill">Next.js</span><span class="pill">Qwik.js</span>
+          </div></div>
+          <div class="skill-block"><div class="grp-l">Language</div><div class="grp-i">
+            <span class="pill">TypeScript</span>
+          </div></div>
+          <div class="skill-block"><div class="grp-l">Styling</div><div class="grp-i">
+            <span class="pill">Tailwind CSS</span><span class="pill">Sass</span><span class="pill">PostCSS</span><span class="pill">BEM</span>
+          </div></div>
+          <div class="skill-block"><div class="grp-l">State &amp; Data</div><div class="grp-i">
+            <span class="pill">Pinia</span><span class="pill">Zustand</span><span class="pill">REST API</span>
+          </div></div>
+          <div class="skill-block"><div class="grp-l">Tooling &amp; QA</div><div class="grp-i">
+            <span class="pill">Storybook</span><span class="pill">Vitest</span><span class="pill">Sentry</span><span class="pill">Git</span>
+          </div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="blk" id="experience" data-screen-label="Experience">
+      <div class="wrap reveal">
+        <div class="sec-head"><span class="num">03</span><h2>Experience</h2><span class="rule"></span></div>
+
+        <div class="xp-co">
+          <div class="xp-co-name">Appliance.io <span class="meta">Full-time · 7 yrs 7 mos</span></div>
+          <div class="xp-role">
+            <div class="date">Mar 2026 — Present</div>
+            <div>
+              <div class="rt">Product Engineering Lead <span class="now-tag">Now</span></div>
+              <div class="rd">Leading product engineering across the platform, aligning frontend direction with product strategy.</div>
+            </div>
+          </div>
+          <div class="xp-role">
+            <div class="date">Sep 2022 — Mar 2026</div>
+            <div>
+              <div class="rt">Frontend Lead</div>
+              <div class="rd">Led <b>3 engineers</b> and owned frontend architecture and the design system. Drove the <b>Vue 3 + TypeScript + Vite</b> migration, lifting build performance and DX by <b>50%</b>.</div>
+            </div>
+          </div>
+          <div class="xp-role">
+            <div class="date">Dec 2018 — Aug 2024</div>
+            <div>
+              <div class="rt">Frontend Developer</div>
+              <div class="rd">Built core platform features and a reusable design system that accelerated delivery by <b>40%</b>, with a focus on responsiveness and cross-browser support.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="xp-co">
+          <div class="xp-co-name">Trys <span class="meta">May 2017 — Nov 2018</span></div>
+          <div class="xp-role">
+            <div class="date">2017 — 2018</div>
+            <div>
+              <div class="rt">Frontend Developer</div>
+              <div class="rd">Designed and built website UIs focused on visually appealing, user-friendly experiences.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="blk" id="projects" data-screen-label="Projects">
+      <div class="wrap reveal">
+        <div class="sec-head"><span class="num">04</span><h2>Projects</h2><span class="rule"></span></div>
+
+        <a class="pj" href="#" data-proj="retailer-dashboard" style="--cov:linear-gradient(135deg,#5b7ba6,#33506f);">
+          <div class="pj-shot"></div>
+          <div>
+            <div class="pj-title">Retailer Dashboard <span class="ar">↗</span></div>
+            <div class="pj-desc">Real-time analytics dashboard for appliance retailers — built for speed with virtualized tables and live data.</div>
+            <div class="pj-tech"><span>Vue 3</span><span>TypeScript</span><span>Pinia</span></div>
+          </div>
+          <div class="pj-year">2025</div>
+        </a>
+        <a class="pj" href="#" data-proj="design-system" style="--cov:linear-gradient(135deg,#caa15a,#856038);">
+          <div class="pj-shot"></div>
+          <div>
+            <div class="pj-title">Design System <span class="ar">↗</span></div>
+            <div class="pj-desc">A reusable component library and tokens powering every product surface, documented in Storybook.</div>
+            <div class="pj-tech"><span>Vue</span><span>Storybook</span><span>Vitest</span></div>
+          </div>
+          <div class="pj-year">2024</div>
+        </a>
+        <a class="pj" href="#" data-proj="checkout-flow" style="--cov:linear-gradient(135deg,#9bab8a,#5e7354);">
+          <div class="pj-shot"></div>
+          <div>
+            <div class="pj-title">Checkout Flow <span class="ar">↗</span></div>
+            <div class="pj-desc">Accessible, multi-step checkout rebuilt from the ground up — cut drop-off and passed WCAG AA.</div>
+            <div class="pj-tech"><span>Nuxt</span><span>Tailwind</span><span>REST API</span></div>
+          </div>
+          <div class="pj-year">2023</div>
+        </a>
+        <a class="pj" href="#" data-proj="marketing-site" style="--cov:linear-gradient(135deg,#c98f6a,#894f36);">
+          <div class="pj-shot"></div>
+          <div>
+            <div class="pj-title">Marketing Site <span class="ar">↗</span></div>
+            <div class="pj-desc">High-performance marketing site with edge rendering and a 100 Lighthouse score across the board.</div>
+            <div class="pj-tech"><span>Qwik.js</span><span>PostCSS</span></div>
+          </div>
+          <div class="pj-year">2022</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact" data-screen-label="Get in touch">
+      <div class="wrap reveal">
+        <div class="sec-head"><span class="num">05</span><h2>Get in touch</h2><span class="rule"></span></div>
+        <p class="ct-lead">I'm open to new roles and interesting projects. Have something in mind? Drop me a line — I'll get back to you soon.</p>
+        <a class="ct-email" href="/cdn-cgi/l/email-protection#e8899a8c8189869b898081868c9a89dfa88f85898184c68b8785"><span class="mk"><span class="__cf_email__" data-cfemail="b1d0c3d5d8d0dfc2d0d9d8dfd5c3d086f1d6dcd0d8dd9fd2dedc">[email&#160;protected]</span></span></a>
+        <div class="ct-links">
+          <a class="ct-link" href="#"><span class="lbl">LinkedIn</span> /in/indra-ardiansah ↗</a>
+          <a class="ct-link" href="#"><span class="lbl">GitHub</span> @indra ↗</a>
+          <a class="ct-link" href="#"><span class="lbl">X / Twitter</span> @indra ↗</a>
+          <a class="ct-link" href="#"><span class="lbl">CV</span> download PDF ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap foot">
+        <span>© 2026 Indra Ardiansah</span>
+        <span>Designed &amp; built from scratch</span>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Project peek modal -->
+  <div class="pm" id="projModal" aria-hidden="true">
+    <div class="pm-backdrop" data-close></div>
+    <div class="pm-scroll" data-close>
+      <div class="pm-panel" role="dialog" aria-modal="true" aria-labelledby="pmTitle">
+        <button class="pm-close" id="pmClose" aria-label="Close">✕</button>
+        <div class="pm-cover" id="pmCover"></div>
+        <div class="pm-body">
+          <h2 class="pm-title" id="pmTitle"></h2>
+          <div>
+            <div class="pm-sub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 18l6-12"></path><path d="M6 8l-3.5 4L6 16"></path><path d="M18 8l3.5 4L18 16"></path></svg> Tech Stack</div>
+            <div class="pm-stack" id="pmStack"></div>
+          </div>
+          <div class="pm-desc" id="pmDesc"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tweaks-root"></div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // ---- theme: vanilla is the single source of truth for data-theme ----
+    function applyTheme(v){
+      document.documentElement.setAttribute('data-theme', v);
+      try { localStorage.setItem('theme', v); } catch(e){}
+      const tg = document.getElementById('themeToggle');
+      if (tg) tg.setAttribute('aria-checked', v==='dark' ? 'true':'false');
+      if (window.__setThemeState) window.__setThemeState(v);  // mirror into Tweaks panel
+    }
+    window.__applyTheme = applyTheme;
+    try { const s = localStorage.getItem('theme'); if (s) applyTheme(s); } catch(e){}
+
+    // sticky header state
+    const hdr = document.getElementById('hdr');
+    addEventListener('scroll', ()=>{ hdr.classList.toggle('scrolled', scrollY>12); }, {passive:true});
+
+    // theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.setAttribute('aria-checked', document.documentElement.getAttribute('data-theme')==='dark' ? 'true':'false');
+    themeToggle.addEventListener('click', ()=>{
+      applyTheme(document.documentElement.getAttribute('data-theme')==='dark' ? 'light':'dark');
+    });
+
+    // reveal on scroll — per-item staggered, with failsafes
+    const ITEM_SEL = '.eyebrow, h1, .role, .tagline, .hero-cta, .sec-head, .about-grid p, .skill-block, .xp-co, .pj, .ct-lead, .ct-email, .ct-links';
+    const containers = [...document.querySelectorAll('.reveal')];
+    containers.forEach(c=>{
+      c.__items = [...c.querySelectorAll(ITEM_SEL)];
+      c.__items.forEach((el,i)=>{ el.classList.add('ri'); el.style.transitionDelay = Math.min(i*70, 420) + 'ms'; });
+    });
+    const revealNow = (c)=> (c.__items||[]).forEach(el=>el.classList.add('in'));
+    const showAll = ()=> containers.forEach(revealNow);
+    if (!('IntersectionObserver' in window)) {
+      showAll();
+    } else {
+      const io = new IntersectionObserver((es)=>{
+        es.forEach(e=>{ if(e.isIntersecting){ revealNow(e.target); io.unobserve(e.target); } });
+      }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+      containers.forEach(c=>io.observe(c));
+      // commit the hidden (.ri) state to a real paint first…
+      void document.body.offsetHeight;
+      // …then on the next frames reveal above-the-fold so it actually transitions
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        containers.forEach(c=>{ const r=c.getBoundingClientRect(); if(r.top < innerHeight*0.92){ revealNow(c); io.unobserve(c); } });
+      }));
+    }
+
+    // active nav link + drifting orb via section observation
+    const orb = document.getElementById('orb');
+    // per-section orb position [x, y] in viewport units
+    const orbPos = {
+      top:        ['58vw', '6vh'],
+      about:      ['-6vw', '24vh'],
+      skills:     ['62vw', '40vh'],
+      experience: ['-10vw', '30vh'],
+      projects:   ['66vw', '12vh'],
+      contact:    ['4vw', '46vh'],
+    };
+    function moveOrb(id){
+      const p = orbPos[id]; if(!p || !orb) return;
+      orb.style.setProperty('--ox', p[0]);
+      orb.style.setProperty('--oy', p[1]);
+    }
+    moveOrb('top');
+
+    const links = [...document.querySelectorAll('nav.sect a')];
+    const map = {};
+    links.forEach(a=>{ map[a.getAttribute('href').slice(1)] = a; });
+    const nav_io = new IntersectionObserver((es)=>{
+      es.forEach(e=>{ if(e.isIntersecting){
+        links.forEach(l=>l.classList.remove('active'));
+        const a=map[e.target.id]; if(a)a.classList.add('active');
+        moveOrb(e.target.id);
+      } });
+    }, {threshold:.4});
+    ['about','skills','experience','projects','contact'].forEach(id=>{ const s=document.getElementById(id); if(s)nav_io.observe(s); });
+
+    // hero owns the orb when scrolled to the very top
+    const heroEl = document.querySelector('.hero');
+    if (heroEl) {
+      const hero_io = new IntersectionObserver((es)=>{
+        es.forEach(e=>{ if(e.isIntersecting && e.intersectionRatio>0.5) moveOrb('top'); });
+      }, {threshold:[0.5]});
+      hero_io.observe(heroEl);
+    }
+  </script>
+
+  <!-- Project peek modal logic -->
+  <script src="project-modal.js"></script>
+
+  <!-- Tweaks -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="portfolio-tweaks.jsx"></script>
+</body>
+</html>

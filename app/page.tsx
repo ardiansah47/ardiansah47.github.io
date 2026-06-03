@@ -1,65 +1,294 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState, type ReactNode } from "react";
+import { Navbar } from "@/components/navbar";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Button } from "@/components/button";
+import { SectionHead } from "@/components/section-head";
+import { ProjectCard } from "@/components/project-card";
+import { ProjectModal } from "@/components/project-modal";
+import { projects, navItems, skills, EMAIL, type Project } from "@/lib/content";
+import { WRAP, SECTION, PILL, MK, MK_EMAIL, CT_LINK, CT_LBL } from "@/lib/styles";
+
+// per-section orb position [x, y] in viewport units
+const orbPos: Record<string, [string, string]> = {
+  top: ["58vw", "6vh"],
+  about: ["-6vw", "24vh"],
+  skills: ["62vw", "40vh"],
+  experience: ["-10vw", "30vh"],
+  projects: ["66vw", "12vh"],
+  contact: ["4vw", "46vh"],
+};
+
+function Role({
+  date,
+  title,
+  now,
+  children,
+}: {
+  date: string;
+  title: string;
+  now?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div className="grid grid-cols-[180px_1fr] gap-[26px] px-4 py-5 rounded-xl transition-colors duration-200 ease-[var(--ease)] hover:bg-surface max-[760px]:grid-cols-1 max-[760px]:gap-1.5">
+      <div className="font-mono text-[11px] tracking-[1.2px] uppercase text-ink-3 pt-1.5 whitespace-nowrap">
+        {date}
+      </div>
+      <div>
+        <div className="flex items-center gap-2.5 font-display text-[19px] font-semibold tracking-[-.2px]">
+          {title}
+          {now && (
+            <span className="font-mono text-[9px] tracking-[1px] uppercase text-ink bg-accent rounded-[5px] px-[7px] py-[3px]">
+              Now
+            </span>
+          )}
+        </div>
+        <div className="text-ink-2 mt-2 text-[16px] leading-[1.55] max-w-[62ch]">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
+  const [active, setActive] = useState<Project | null>(null);
+
+  // drift the background orb to follow the section in view
+  useEffect(() => {
+    const orb = document.getElementById("orb");
+    const moveOrb = (id: string) => {
+      const p = orbPos[id];
+      if (!p || !orb) return;
+      orb.style.setProperty("--ox", p[0]);
+      orb.style.setProperty("--oy", p[1]);
+    };
+    moveOrb("top");
+
+    const sectionIo = new IntersectionObserver(
+      (es) => es.forEach((e) => e.isIntersecting && moveOrb(e.target.id)),
+      { threshold: 0.4 },
+    );
+    navItems.forEach(({ id }) => {
+      const s = document.getElementById(id);
+      if (s) sectionIo.observe(s);
+    });
+
+    // hero owns the orb when scrolled to the very top
+    const heroEl = document.getElementById("hero");
+    const heroIo = new IntersectionObserver(
+      (es) =>
+        es.forEach(
+          (e) => e.isIntersecting && e.intersectionRatio > 0.5 && moveOrb("top"),
+        ),
+      { threshold: [0.5] },
+    );
+    if (heroEl) heroIo.observe(heroEl);
+
+    return () => {
+      sectionIo.disconnect();
+      heroIo.disconnect();
+    };
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
+    <>
+      <div
+        id="orb"
+        className="fixed z-0 pointer-events-none w-[48vw] max-w-[620px] aspect-square rounded-full left-0 top-0 opacity-50 blur-[72px] will-change-transform bg-[radial-gradient(circle_at_50%_50%,color-mix(in_oklch,var(--accent)_42%,transparent),transparent_68%)] [transform:translate3d(var(--ox,60vw),var(--oy,8vh),0)] transition-[transform,opacity] duration-[1300ms] ease-[var(--ease)] motion-reduce:transition-none dark:opacity-[.42] dark:blur-[86px] max-[760px]:w-[80vw] max-[760px]:blur-[56px] max-[760px]:opacity-40"
+      />
+
+      <Navbar items={navItems} right={<ThemeToggle />} />
+
+      <main id="top">
+        {/* HERO */}
+        <section
+          id="hero"
+          className="py-[90px] border-b border-line max-[760px]:pt-[84px] max-[760px]:pb-[70px]"
+        >
+          <div className={WRAP}>
+            <div className="font-mono text-xs tracking-[2px] uppercase text-ink-3 mb-[26px]">
+              Hello, my name is
+            </div>
+            <h1 className="font-display font-bold text-[clamp(52px,9vw,108px)] leading-[.94] tracking-[-3px] m-0">
+              Indra
+              <br />
+              Ardiansah
+            </h1>
+            <div className="font-display font-medium text-[clamp(20px,3vw,30px)] tracking-[-.4px] mt-[22px] text-ink-2">
+              Sr. Frontend Engineer
+            </div>
+            <p className="text-[clamp(20px,2.6vw,27px)] leading-[1.4] font-light mt-[30px] max-w-[30ch]">
+              I build <span className={MK}>accessible</span> interfaces and{" "}
+              <span className={MK}>user-centered</span>{" "}
+              <span className="font-serif italic font-normal whitespace-nowrap">
+                applications
+              </span>
+              .
+            </p>
+            <div className="flex gap-[14px] flex-wrap mt-[42px]">
+              <Button href="#contact" variant="primary" icon="↗">
+                Get in touch
+              </Button>
+              <Button href="#" variant="ghost" icon="↓">
+                Download CV
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* ABOUT */}
+        <section className={SECTION} id="about">
+          <div className={WRAP}>
+            <SectionHead num="01">About</SectionHead>
+            <div className="grid grid-cols-1 gap-6 max-w-[760px]">
+              <p className="m-0 text-[19px] leading-[1.66] text-ink-2">
+                I&apos;m a frontend engineer with <b>7+ years</b> of experience
+                building <span className={MK}>accessible</span>,
+                high-performance web applications. I care about the small
+                details that make an interface feel effortless, and I do my best
+                work where thoughtful design meets <b>clean, scalable code</b>.
+              </p>
+              <p className="m-0 text-[19px] leading-[1.66] text-ink-2">
+                Currently, I&apos;m the <b>Frontend Lead at Appliance.io</b>, a
+                SaaS platform for appliance retailers. I shape our frontend
+                architecture and design system — leading work across components,
+                tooling, and patterns to keep our products fast, consistent, and
+                accessible.
+              </p>
+              <p className="m-0 text-[19px] leading-[1.66] text-ink-2">
+                Before that, I spent years crafting product UIs across startups
+                and studios with Vue, Nuxt, React, and Next.js — experiences
+                that shaped how I build products that are both{" "}
+                <b>well-crafted</b> and widely usable.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* SKILLS */}
+        <section className={SECTION} id="skills">
+          <div className={WRAP}>
+            <SectionHead num="02">Skills &amp; Stack</SectionHead>
+            <div className="flex flex-col gap-6 max-[760px]:gap-x-0 max-[760px]:gap-y-2">
+              {skills.map((grp) => (
+                <div
+                  key={grp.label}
+                  className="grid grid-cols-[170px_1fr] gap-9 items-baseline max-[760px]:grid-cols-1 max-[760px]:gap-1.5 max-[760px]:[&:not(:first-child)]:border-t max-[760px]:[&:not(:first-child)]:border-line"
+                >
+                  <div className="font-mono text-xs tracking-[1.5px] uppercase text-ink-3 pt-2 max-[760px]:pt-[18px]">
+                    {grp.label}
+                  </div>
+                  <div className="flex flex-wrap gap-2.5">
+                    {grp.items.map((item) => (
+                      <span key={item} className={PILL}>
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* EXPERIENCE */}
+        <section className={SECTION} id="experience">
+          <div className={WRAP}>
+            <SectionHead num="03">Experience</SectionHead>
+
+            <div className="mb-[46px] last:mb-0">
+              <div className="font-display text-[22px] font-semibold tracking-[-.3px] pb-3 border-b border-line mb-2.5 flex justify-between items-baseline gap-3">
+                Appliance.io{" "}
+                <span className="font-mono text-[11px] text-ink-3 tracking-[.5px] font-normal">
+                  Full-time · 7 yrs 7 mos
+                </span>
+              </div>
+              <Role date="Mar 2026 — Present" title="Product Engineering Lead" now>
+                Leading product engineering across the platform, aligning
+                frontend direction with product strategy.
+              </Role>
+              <Role date="Sep 2022 — Mar 2026" title="Frontend Lead">
+                Led <b>3 engineers</b> and owned frontend architecture and the
+                design system. Drove the <b>Vue 3 + TypeScript + Vite</b>{" "}
+                migration, lifting build performance and DX by <b>50%</b>.
+              </Role>
+              <Role date="Dec 2018 — Aug 2024" title="Frontend Developer">
+                Built core platform features and a reusable design system that
+                accelerated delivery by <b>40%</b>, with a focus on
+                responsiveness and cross-browser support.
+              </Role>
+            </div>
+
+            <div className="mb-[46px] last:mb-0">
+              <div className="font-display text-[22px] font-semibold tracking-[-.3px] pb-3 border-b border-line mb-2.5 flex justify-between items-baseline gap-3">
+                Trys{" "}
+                <span className="font-mono text-[11px] text-ink-3 tracking-[.5px] font-normal">
+                  May 2017 — Nov 2018
+                </span>
+              </div>
+              <Role date="2017 — 2018" title="Frontend Developer">
+                Designed and built website UIs focused on visually appealing,
+                user-friendly experiences.
+              </Role>
+            </div>
+          </div>
+        </section>
+
+        {/* PROJECTS */}
+        <section className={SECTION} id="projects">
+          <div className={WRAP}>
+            <SectionHead num="04">Projects</SectionHead>
+            {projects.map((p) => (
+              <ProjectCard key={p.id} project={p} onOpen={setActive} />
+            ))}
+          </div>
+        </section>
+
+        {/* CONTACT */}
+        <section className="pt-[90px] pb-[100px]" id="contact">
+          <div className={WRAP}>
+            <SectionHead num="05">Get in touch</SectionHead>
+            <p className="text-[21px] leading-[1.6] text-ink-2 max-w-[54ch]">
+              I&apos;m open to new roles and interesting projects. Have something
+              in mind? Drop me a line — I&apos;ll get back to you soon.
+            </p>
             <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              className="inline-block font-display font-bold text-[clamp(26px,4.2vw,44px)] tracking-[-1.4px] no-underline mt-[26px] leading-[1.1] text-ink"
+              href={`mailto:${EMAIL}`}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+              <span className={MK_EMAIL}>{EMAIL}</span>
+            </a>
+            <div className="flex flex-wrap gap-x-[30px] gap-y-[14px] mt-[46px]">
+              <a className={CT_LINK} href="#">
+                <span className={CT_LBL}>LinkedIn</span> /in/indra-ardiansah ↗
+              </a>
+              <a className={CT_LINK} href="#">
+                <span className={CT_LBL}>GitHub</span> @indra ↗
+              </a>
+              <a className={CT_LINK} href="#">
+                <span className={CT_LBL}>X / Twitter</span> @indra ↗
+              </a>
+              <a className={CT_LINK} href="#">
+                <span className={CT_LBL}>CV</span> download PDF ↓
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <footer className="pt-[34px] pb-[50px]">
+          <div
+            className={`${WRAP} flex justify-between flex-wrap gap-[14px] font-mono text-[11.5px] text-ink-3`}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+            <span>© 2026 Indra Ardiansah</span>
+            <span>Designed &amp; built from scratch</span>
+          </div>
+        </footer>
       </main>
-    </div>
+
+      <ProjectModal project={active} onClose={() => setActive(null)} />
+    </>
   );
 }
