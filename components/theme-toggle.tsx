@@ -1,6 +1,9 @@
 "use client";
 
+import { motion } from "motion/react";
 import { useEffect, useState } from "react";
+
+const EASE = [0.22, 0.61, 0.36, 1] as [number, number, number, number];
 
 /**
  * Sun/moon switch that flips the `data-theme` attribute on <html>.
@@ -47,7 +50,16 @@ export function ThemeToggle() {
         strokeWidth="1.7"
         strokeLinecap="round"
       >
-        <g className="origin-center transition-[opacity,transform] duration-[450ms] ease-[var(--ease)] dark:opacity-0 dark:rotate-[60deg] dark:scale-[.6]">
+        <motion.g
+          className="origin-center"
+          initial={false}
+          animate={
+            theme === "dark"
+              ? { opacity: 0, rotate: 60, scale: 0.6 }
+              : { opacity: 1, rotate: 0, scale: 1 }
+          }
+          transition={{ duration: 0.45, ease: EASE }}
+        >
           <circle cx="12" cy="12" r="4.2" />
           <g>
             <line x1="12" y1="2.5" x2="12" y2="4.6" />
@@ -59,9 +71,16 @@ export function ThemeToggle() {
             <line x1="18.8" y1="5.2" x2="17.3" y2="6.7" />
             <line x1="6.7" y1="17.3" x2="5.2" y2="18.8" />
           </g>
-        </g>
-        <path
-          className="origin-center transition-[opacity,transform] duration-[450ms] ease-[var(--ease)] opacity-0 rotate-[-60deg] scale-[.6] dark:opacity-100 dark:rotate-0 dark:scale-100 dark:text-accent-ink"
+        </motion.g>
+        <motion.path
+          className="origin-center dark:text-accent-ink"
+          initial={false}
+          animate={
+            theme === "dark"
+              ? { opacity: 1, rotate: 0, scale: 1 }
+              : { opacity: 0, rotate: -60, scale: 0.6 }
+          }
+          transition={{ duration: 0.45, ease: EASE }}
           d="M20 14.5A8 8 0 0 1 9.5 4 7 7 0 1 0 20 14.5Z"
         />
       </svg>

@@ -9,7 +9,7 @@ import { SectionHead } from "@/components/section-head";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectModal } from "@/components/project-modal";
 import { Mark } from "@/components/mark";
-import { fadeUp, stagger, inView } from "@/components/motion";
+import { fadeUp, stagger, staggerDelayed, inView } from "@/components/motion";
 import { projects, navItems, skills, EMAIL, type Project } from "@/lib/content";
 import { WRAP, SECTION, PILL, CT_LINK, CT_LBL } from "@/lib/styles";
 
@@ -159,7 +159,7 @@ export default function Home() {
 
         {/* ABOUT */}
         <section className={SECTION} id="about">
-          <motion.div className={WRAP} variants={stagger} {...inView}>
+          <motion.div className={WRAP} variants={staggerDelayed} {...inView}>
             <motion.div variants={fadeUp}>
               <SectionHead num="01">About</SectionHead>
             </motion.div>
@@ -202,7 +202,7 @@ export default function Home() {
 
         {/* SKILLS */}
         <section className={SECTION} id="skills">
-          <motion.div className={WRAP} variants={stagger} {...inView}>
+          <motion.div className={WRAP} variants={staggerDelayed} {...inView}>
             <motion.div variants={fadeUp}>
               <SectionHead num="02">Skills &amp; Stack</SectionHead>
             </motion.div>
@@ -234,7 +234,7 @@ export default function Home() {
 
         {/* EXPERIENCE */}
         <section className={SECTION} id="experience">
-          <motion.div className={WRAP} variants={stagger} {...inView}>
+          <motion.div className={WRAP} variants={staggerDelayed} {...inView}>
             <motion.div variants={fadeUp}>
               <SectionHead num="03">Experience</SectionHead>
             </motion.div>
@@ -279,7 +279,7 @@ export default function Home() {
 
         {/* PROJECTS */}
         <section className={SECTION} id="projects">
-          <motion.div className={WRAP} variants={stagger} {...inView}>
+          <motion.div className={WRAP} variants={staggerDelayed} {...inView}>
             <motion.div variants={fadeUp}>
               <SectionHead num="04">Projects</SectionHead>
             </motion.div>
@@ -291,7 +291,7 @@ export default function Home() {
 
         {/* CONTACT */}
         <section className="pt-[90px] pb-[100px]" id="contact">
-          <motion.div className={WRAP} variants={stagger} {...inView}>
+          <motion.div className={WRAP} variants={staggerDelayed} {...inView}>
             <motion.div variants={fadeUp}>
               <SectionHead num="05">Get in touch</SectionHead>
             </motion.div>

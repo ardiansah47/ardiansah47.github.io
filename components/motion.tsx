@@ -15,6 +15,16 @@ export const stagger: Variants = {
   show: { transition: { staggerChildren: 0.08 } },
 };
 
+/**
+ * Like `stagger`, but waits a beat before the first child reveals. Used for
+ * below-the-fold sections so they animate just after settling into view; the
+ * hero (visible on load) keeps `stagger` and reveals immediately.
+ */
+export const staggerDelayed: Variants = {
+  hidden: {},
+  show: { transition: { delayChildren: 0.2, staggerChildren: 0.08 } },
+};
+
 /** Spread onto a top-level container to trigger `stagger` when it scrolls in. */
 export const inView = {
   initial: "hidden" as const,
