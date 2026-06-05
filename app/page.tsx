@@ -163,10 +163,7 @@ export default function Home() {
             <motion.div variants={fadeUp}>
               <SectionHead num="01">About</SectionHead>
             </motion.div>
-            <motion.div
-              variants={stagger}
-              className="grid grid-cols-1 gap-6 max-w-[760px]"
-            >
+            <motion.div variants={stagger} className="grid grid-cols-1 gap-6">
               <motion.p
                 variants={fadeUp}
                 className="m-0 text-[19px] leading-[1.66] text-ink-2"
