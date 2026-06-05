@@ -35,7 +35,7 @@ function Role({
   children: ReactNode;
 }) {
   return (
-    <div className="grid grid-cols-[180px_1fr] gap-[26px] px-4 py-5 rounded-xl transition-colors duration-200 ease-[var(--ease)] hover:bg-surface max-[760px]:grid-cols-1 max-[760px]:gap-1.5">
+    <div className="grid grid-cols-[180px_1fr] gap-[26px] px-4 py-5 rounded-xl transition-colors duration-200 ease-[var(--ease)] hover:bg-surface max-[760px]:grid-cols-1 max-[760px]:gap-1.5 max-[760px]:px-0">
       <div className="font-mono text-[11px] tracking-[1.2px] uppercase text-ink-3 pt-1.5 whitespace-nowrap">
         {date}
       </div>
