@@ -109,9 +109,9 @@ export default function Home() {
         {/* HERO */}
         <section
           id="hero"
-          className="min-h-[calc(100dvh_-_74px)] flex items-center py-[90px] border-b border-line max-[760px]:pt-[84px] max-[760px]:pb-[70px]"
+          className="py-[90px] border-b border-line max-[760px]:pt-[84px] max-[760px]:pb-[70px]"
         >
-          <motion.div className={`${WRAP} w-full`} variants={stagger} {...inView}>
+          <motion.div className={WRAP} variants={stagger} {...inView}>
             <motion.div
               variants={fadeUp}
               className="font-mono text-xs tracking-[2px] uppercase text-ink-3 mb-[26px]"
@@ -159,7 +159,7 @@ export default function Home() {
 
         {/* ABOUT */}
         <section className={SECTION} id="about">
-          <motion.div className={`${WRAP} w-full`} variants={staggerDelayed} {...inView}>
+          <motion.div className={WRAP} variants={staggerDelayed} {...inView}>
             <motion.div variants={fadeUp}>
               <SectionHead num="01">About</SectionHead>
             </motion.div>
@@ -202,7 +202,7 @@ export default function Home() {
 
         {/* SKILLS */}
         <section className={SECTION} id="skills">
-          <motion.div className={`${WRAP} w-full`} variants={staggerDelayed} {...inView}>
+          <motion.div className={WRAP} variants={staggerDelayed} {...inView}>
             <motion.div variants={fadeUp}>
               <SectionHead num="02">Skills &amp; Stack</SectionHead>
             </motion.div>
@@ -234,7 +234,7 @@ export default function Home() {
 
         {/* EXPERIENCE */}
         <section className={SECTION} id="experience">
-          <motion.div className={`${WRAP} w-full`} variants={staggerDelayed} {...inView}>
+          <motion.div className={WRAP} variants={staggerDelayed} {...inView}>
             <motion.div variants={fadeUp}>
               <SectionHead num="03">Experience</SectionHead>
             </motion.div>
@@ -279,7 +279,7 @@ export default function Home() {
 
         {/* PROJECTS */}
         <section className={SECTION} id="projects">
-          <motion.div className={`${WRAP} w-full`} variants={staggerDelayed} {...inView}>
+          <motion.div className={WRAP} variants={staggerDelayed} {...inView}>
             <motion.div variants={fadeUp}>
               <SectionHead num="04">Projects</SectionHead>
             </motion.div>
@@ -290,11 +290,8 @@ export default function Home() {
         </section>
 
         {/* CONTACT */}
-        <section
-          className="min-h-[calc(100dvh_-_74px)] flex items-center pt-[90px] pb-[100px]"
-          id="contact"
-        >
-          <motion.div className={`${WRAP} w-full`} variants={staggerDelayed} {...inView}>
+        <section className="pt-[90px] pb-[100px]" id="contact">
+          <motion.div className={WRAP} variants={staggerDelayed} {...inView}>
             <motion.div variants={fadeUp}>
               <SectionHead num="05">Get in touch</SectionHead>
             </motion.div>
