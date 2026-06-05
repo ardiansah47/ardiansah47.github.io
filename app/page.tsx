@@ -205,15 +205,15 @@ export default function Home() {
             </motion.div>
             <motion.div
               variants={stagger}
-              className="flex flex-col gap-6 max-[760px]:gap-x-0 max-[760px]:gap-y-2"
+              className="flex flex-col gap-6 max-[760px]:gap-0 max-[760px]:divide-y max-[760px]:divide-line"
             >
               {skills.map((grp) => (
                 <motion.div
                   key={grp.label}
                   variants={fadeUp}
-                  className="grid grid-cols-[170px_1fr] gap-9 items-baseline max-[760px]:grid-cols-1 max-[760px]:gap-1.5 max-[760px]:[&:not(:first-child)]:border-t max-[760px]:[&:not(:first-child)]:border-line"
+                  className="grid grid-cols-[170px_1fr] gap-9 items-baseline max-[760px]:grid-cols-1 max-[760px]:gap-2.5 max-[760px]:py-5 max-[760px]:[&:first-child]:pt-0 max-[760px]:[&:last-child]:pb-0"
                 >
-                  <div className="font-mono text-xs tracking-[1.5px] uppercase text-ink-3 pt-2 max-[760px]:pt-[18px]">
+                  <div className="font-mono text-xs tracking-[1.5px] uppercase text-ink-3 pt-2 max-[760px]:pt-0">
                     {grp.label}
                   </div>
                   <div className="flex flex-wrap gap-2.5">
