@@ -109,9 +109,9 @@ export default function Home() {
         {/* HERO */}
         <section
           id="hero"
-          className="py-[90px] border-b border-line max-[760px]:pt-[84px] max-[760px]:pb-[70px]"
+          className="min-h-[calc(100dvh_-_74px)] flex items-center py-[90px] border-b border-line max-[760px]:pt-[84px] max-[760px]:pb-[70px]"
         >
-          <motion.div className={WRAP} variants={stagger} {...inView}>
+          <motion.div className={`${WRAP} w-full`} variants={stagger} {...inView}>
             <motion.div
               variants={fadeUp}
               className="font-mono text-xs tracking-[2px] uppercase text-ink-3 mb-[26px]"
