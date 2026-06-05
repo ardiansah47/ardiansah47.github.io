@@ -1,4 +1,8 @@
+"use client";
+
 import type { CSSProperties } from "react";
+import { motion } from "motion/react";
+import { fadeUp } from "@/components/motion";
 import type { Project } from "@/lib/content";
 
 /** A single project row that opens the peek modal when clicked. */
@@ -10,7 +14,8 @@ export function ProjectCard({
   onOpen: (project: Project) => void;
 }) {
   return (
-    <button
+    <motion.button
+      variants={fadeUp}
       type="button"
       onClick={() => onOpen(project)}
       style={{ "--cov": project.cover } as CSSProperties}
@@ -33,6 +38,6 @@ export function ProjectCard({
       <div className="font-mono text-[11px] text-ink-3 tracking-[.8px] self-start pt-1.5 max-[760px]:pt-0">
         {project.year}
       </div>
-    </button>
+    </motion.button>
   );
 }

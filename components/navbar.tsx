@@ -44,7 +44,9 @@ export function Navbar({
       },
       { threshold: 0.4 },
     );
-    items.forEach(({ id }) => {
+    // Observe the hero too: it has no matching link, so scrolling back up to
+    // it clears every active link (instead of leaving "About" highlighted).
+    [...items.map((i) => i.id), "hero"].forEach((id) => {
       const s = document.getElementById(id);
       if (s) io.observe(s);
     });

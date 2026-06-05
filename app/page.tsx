@@ -1,14 +1,17 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
+import { motion } from "motion/react";
 import { Navbar } from "@/components/navbar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/button";
 import { SectionHead } from "@/components/section-head";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectModal } from "@/components/project-modal";
+import { Mark } from "@/components/mark";
+import { fadeUp, stagger, inView } from "@/components/motion";
 import { projects, navItems, skills, EMAIL, type Project } from "@/lib/content";
-import { WRAP, SECTION, PILL, MK, MK_EMAIL, CT_LINK, CT_LBL } from "@/lib/styles";
+import { WRAP, SECTION, PILL, CT_LINK, CT_LBL } from "@/lib/styles";
 
 // per-section orb position [x, y] in viewport units
 const orbPos: Record<string, [string, string]> = {
@@ -108,74 +111,109 @@ export default function Home() {
           id="hero"
           className="py-[90px] border-b border-line max-[760px]:pt-[84px] max-[760px]:pb-[70px]"
         >
-          <div className={WRAP}>
-            <div className="font-mono text-xs tracking-[2px] uppercase text-ink-3 mb-[26px]">
+          <motion.div className={WRAP} variants={stagger} {...inView}>
+            <motion.div
+              variants={fadeUp}
+              className="font-mono text-xs tracking-[2px] uppercase text-ink-3 mb-[26px]"
+            >
               Hello, my name is
-            </div>
-            <h1 className="font-display font-bold text-[clamp(52px,9vw,108px)] leading-[.94] tracking-[-3px] m-0">
+            </motion.div>
+            <motion.h1
+              variants={fadeUp}
+              className="font-display font-bold text-[clamp(52px,9vw,108px)] leading-[.94] tracking-[-3px] m-0"
+            >
               Indra
               <br />
               Ardiansah
-            </h1>
-            <div className="font-display font-medium text-[clamp(20px,3vw,30px)] tracking-[-.4px] mt-[22px] text-ink-2">
+            </motion.h1>
+            <motion.div
+              variants={fadeUp}
+              className="font-display font-medium text-[clamp(20px,3vw,30px)] tracking-[-.4px] mt-[22px] text-ink-2"
+            >
               Sr. Frontend Engineer
-            </div>
-            <p className="text-[clamp(20px,2.6vw,27px)] leading-[1.4] font-light mt-[30px] max-w-[30ch]">
-              I build <span className={MK}>accessible</span> interfaces and{" "}
-              <span className={MK}>user-centered</span>{" "}
+            </motion.div>
+            <motion.p
+              variants={fadeUp}
+              className="text-[clamp(20px,2.6vw,27px)] leading-[1.4] font-light mt-[30px] max-w-[30ch]"
+            >
+              I build <Mark>accessible</Mark> interfaces and{" "}
+              <Mark>user-centered</Mark>{" "}
               <span className="font-serif italic font-normal whitespace-nowrap">
                 applications
               </span>
               .
-            </p>
-            <div className="flex gap-[14px] flex-wrap mt-[42px]">
+            </motion.p>
+            <motion.div
+              variants={fadeUp}
+              className="flex gap-[14px] flex-wrap mt-[42px]"
+            >
               <Button href="#contact" variant="primary" icon="↗">
                 Get in touch
               </Button>
               <Button href="#" variant="ghost" icon="↓">
                 Download CV
               </Button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </section>
 
         {/* ABOUT */}
         <section className={SECTION} id="about">
-          <div className={WRAP}>
-            <SectionHead num="01">About</SectionHead>
-            <div className="grid grid-cols-1 gap-6 max-w-[760px]">
-              <p className="m-0 text-[19px] leading-[1.66] text-ink-2">
+          <motion.div className={WRAP} variants={stagger} {...inView}>
+            <motion.div variants={fadeUp}>
+              <SectionHead num="01">About</SectionHead>
+            </motion.div>
+            <motion.div
+              variants={stagger}
+              className="grid grid-cols-1 gap-6 max-w-[760px]"
+            >
+              <motion.p
+                variants={fadeUp}
+                className="m-0 text-[19px] leading-[1.66] text-ink-2"
+              >
                 I&apos;m a frontend engineer with <b>7+ years</b> of experience
-                building <span className={MK}>accessible</span>,
-                high-performance web applications. I care about the small
-                details that make an interface feel effortless, and I do my best
-                work where thoughtful design meets <b>clean, scalable code</b>.
-              </p>
-              <p className="m-0 text-[19px] leading-[1.66] text-ink-2">
+                building <Mark>accessible</Mark>, high-performance web
+                applications. I care about the small details that make an
+                interface feel effortless, and I do my best work where
+                thoughtful design meets <b>clean, scalable code</b>.
+              </motion.p>
+              <motion.p
+                variants={fadeUp}
+                className="m-0 text-[19px] leading-[1.66] text-ink-2"
+              >
                 Currently, I&apos;m the <b>Frontend Lead at Appliance.io</b>, a
                 SaaS platform for appliance retailers. I shape our frontend
                 architecture and design system — leading work across components,
                 tooling, and patterns to keep our products fast, consistent, and
                 accessible.
-              </p>
-              <p className="m-0 text-[19px] leading-[1.66] text-ink-2">
+              </motion.p>
+              <motion.p
+                variants={fadeUp}
+                className="m-0 text-[19px] leading-[1.66] text-ink-2"
+              >
                 Before that, I spent years crafting product UIs across startups
                 and studios with Vue, Nuxt, React, and Next.js — experiences
                 that shaped how I build products that are both{" "}
                 <b>well-crafted</b> and widely usable.
-              </p>
-            </div>
-          </div>
+              </motion.p>
+            </motion.div>
+          </motion.div>
         </section>
 
         {/* SKILLS */}
         <section className={SECTION} id="skills">
-          <div className={WRAP}>
-            <SectionHead num="02">Skills &amp; Stack</SectionHead>
-            <div className="flex flex-col gap-6 max-[760px]:gap-x-0 max-[760px]:gap-y-2">
+          <motion.div className={WRAP} variants={stagger} {...inView}>
+            <motion.div variants={fadeUp}>
+              <SectionHead num="02">Skills &amp; Stack</SectionHead>
+            </motion.div>
+            <motion.div
+              variants={stagger}
+              className="flex flex-col gap-6 max-[760px]:gap-x-0 max-[760px]:gap-y-2"
+            >
               {skills.map((grp) => (
-                <div
+                <motion.div
                   key={grp.label}
+                  variants={fadeUp}
                   className="grid grid-cols-[170px_1fr] gap-9 items-baseline max-[760px]:grid-cols-1 max-[760px]:gap-1.5 max-[760px]:[&:not(:first-child)]:border-t max-[760px]:[&:not(:first-child)]:border-line"
                 >
                   <div className="font-mono text-xs tracking-[1.5px] uppercase text-ink-3 pt-2 max-[760px]:pt-[18px]">
@@ -188,18 +226,20 @@ export default function Home() {
                       </span>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </section>
 
         {/* EXPERIENCE */}
         <section className={SECTION} id="experience">
-          <div className={WRAP}>
-            <SectionHead num="03">Experience</SectionHead>
+          <motion.div className={WRAP} variants={stagger} {...inView}>
+            <motion.div variants={fadeUp}>
+              <SectionHead num="03">Experience</SectionHead>
+            </motion.div>
 
-            <div className="mb-[46px] last:mb-0">
+            <motion.div variants={fadeUp} className="mb-[46px] last:mb-0">
               <div className="font-display text-[22px] font-semibold tracking-[-.3px] pb-3 border-b border-line mb-2.5 flex justify-between items-baseline gap-3">
                 Appliance.io{" "}
                 <span className="font-mono text-[11px] text-ink-3 tracking-[.5px] font-normal">
@@ -220,9 +260,9 @@ export default function Home() {
                 accelerated delivery by <b>40%</b>, with a focus on
                 responsiveness and cross-browser support.
               </Role>
-            </div>
+            </motion.div>
 
-            <div className="mb-[46px] last:mb-0">
+            <motion.div variants={fadeUp} className="mb-[46px] last:mb-0">
               <div className="font-display text-[22px] font-semibold tracking-[-.3px] pb-3 border-b border-line mb-2.5 flex justify-between items-baseline gap-3">
                 Trys{" "}
                 <span className="font-mono text-[11px] text-ink-3 tracking-[.5px] font-normal">
@@ -233,35 +273,46 @@ export default function Home() {
                 Designed and built website UIs focused on visually appealing,
                 user-friendly experiences.
               </Role>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </section>
 
         {/* PROJECTS */}
         <section className={SECTION} id="projects">
-          <div className={WRAP}>
-            <SectionHead num="04">Projects</SectionHead>
+          <motion.div className={WRAP} variants={stagger} {...inView}>
+            <motion.div variants={fadeUp}>
+              <SectionHead num="04">Projects</SectionHead>
+            </motion.div>
             {projects.map((p) => (
               <ProjectCard key={p.id} project={p} onOpen={setActive} />
             ))}
-          </div>
+          </motion.div>
         </section>
 
         {/* CONTACT */}
         <section className="pt-[90px] pb-[100px]" id="contact">
-          <div className={WRAP}>
-            <SectionHead num="05">Get in touch</SectionHead>
-            <p className="text-[21px] leading-[1.6] text-ink-2 max-w-[54ch]">
+          <motion.div className={WRAP} variants={stagger} {...inView}>
+            <motion.div variants={fadeUp}>
+              <SectionHead num="05">Get in touch</SectionHead>
+            </motion.div>
+            <motion.p
+              variants={fadeUp}
+              className="text-[21px] leading-[1.6] text-ink-2 max-w-[54ch]"
+            >
               I&apos;m open to new roles and interesting projects. Have something
               in mind? Drop me a line — I&apos;ll get back to you soon.
-            </p>
-            <a
+            </motion.p>
+            <motion.a
+              variants={fadeUp}
               className="inline-block font-display font-bold text-[clamp(26px,4.2vw,44px)] tracking-[-1.4px] no-underline mt-[26px] leading-[1.1] text-ink"
               href={`mailto:${EMAIL}`}
             >
-              <span className={MK_EMAIL}>{EMAIL}</span>
-            </a>
-            <div className="flex flex-wrap gap-x-[30px] gap-y-[14px] mt-[46px]">
+              <Mark email>{EMAIL}</Mark>
+            </motion.a>
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-wrap gap-x-[30px] gap-y-[14px] mt-[46px]"
+            >
               <a className={CT_LINK} href="#">
                 <span className={CT_LBL}>LinkedIn</span> /in/indra-ardiansah ↗
               </a>
@@ -274,8 +325,8 @@ export default function Home() {
               <a className={CT_LINK} href="#">
                 <span className={CT_LBL}>CV</span> download PDF ↓
               </a>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </section>
 
         <footer className="pt-[34px] pb-[50px]">
