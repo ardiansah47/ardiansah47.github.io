@@ -86,7 +86,7 @@ export function Navbar({
     <>
       <header
         id="hdr"
-        className="group/hdr sticky top-0 z-40 bg-transparent transition-[background-color,backdrop-filter] duration-300 ease-[var(--ease)] max-[760px]:[&.scrolled]:bg-[color-mix(in_oklch,var(--bg)_85%,transparent)] max-[760px]:[&.scrolled]:backdrop-blur-[12px]"
+        className="group/hdr sticky top-0 z-40 bg-transparent transition-[padding] duration-300 ease-[var(--ease)]"
       >
         <div
           className={`${WRAP} flex items-center justify-center max-[760px]:justify-end gap-3 h-[74px] transition-[height] duration-300 ease-[var(--ease)] group-[.scrolled]/hdr:h-[66px]`}
