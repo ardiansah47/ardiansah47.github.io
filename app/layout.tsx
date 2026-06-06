@@ -34,9 +34,9 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "Indra Ardiansah — Frontend Engineer",
+  title: "Sr. Frontend Engineer",
   description:
-    "Sr. Frontend Engineer building accessible interfaces and user-centered applications.",
+    "Indra Ardiansah — Frontend Lead with 7+ years building accessible, high-performance web apps in Vue, Nuxt, React & Next.js. Thoughtful design, clean code.",
 };
 
 // Runs before first paint so a saved dark theme doesn't flash light.
