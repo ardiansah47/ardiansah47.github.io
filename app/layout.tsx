@@ -34,7 +34,7 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "Sr. Frontend Engineer",
+  title: "Indra Ardiansah — Sr. Frontend Engineer",
   description:
     "Indra Ardiansah — Frontend Lead with 7+ years building accessible, high-performance web apps in Vue, Nuxt, React & Next.js. Thoughtful design, clean code.",
 };
