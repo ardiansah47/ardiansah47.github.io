@@ -73,8 +73,11 @@ export const skills: { label: string; items: string[] }[] = [
   { label: "Frameworks", items: ["Vue.js", "Nuxt.js", "React.js", "Next.js", "Qwik.js"] },
   { label: "Language", items: ["TypeScript"] },
   { label: "Styling", items: ["Tailwind CSS", "Sass", "PostCSS", "BEM"] },
-  { label: "State & Data", items: ["Pinia", "Zustand", "REST API"] },
-  { label: "Tooling & QA", items: ["Storybook", "Vitest", "Sentry", "Git"] },
+  { label: "State & Data", items: ["Vuex", "Pinia", "Zustand", "REST API"] },
+  {
+    label: "Tooling & QA",
+    items: ["Storybook", "Vitest", "Playwright", "Cypress", "Sentry", "Git"],
+  },
 ];
 
 export const EMAIL = "ardiansahindra7@gmail.com";
