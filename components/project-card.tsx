@@ -19,7 +19,7 @@ export function ProjectCard({
       type="button"
       onClick={() => onOpen(project)}
       style={{ "--cov": project.cover } as CSSProperties}
-      className="group/pj grid grid-cols-[150px_1fr_auto] gap-7 items-center px-4 py-[26px] w-full text-left border-0 bg-transparent cursor-pointer relative transition-[background-color,transform] duration-200 ease-[var(--ease)] hover:bg-surface hover:rounded-[14px] max-[760px]:grid-cols-1 max-[760px]:gap-[14px] [&:not(:first-of-type)]:before:content-[''] [&:not(:first-of-type)]:before:absolute [&:not(:first-of-type)]:before:top-0 [&:not(:first-of-type)]:before:inset-x-0 [&:not(:first-of-type)]:before:h-px [&:not(:first-of-type)]:before:bg-line"
+      className="group/pj grid grid-cols-[150px_1fr] gap-7 items-center px-4 py-[26px] w-full text-left border-0 bg-transparent cursor-pointer relative transition-[background-color,transform] duration-200 ease-[var(--ease)] hover:bg-surface hover:rounded-[14px] max-[760px]:grid-cols-1 max-[760px]:gap-[14px] [&:not(:first-of-type)]:before:content-[''] [&:not(:first-of-type)]:before:absolute [&:not(:first-of-type)]:before:top-0 [&:not(:first-of-type)]:before:inset-x-0 [&:not(:first-of-type)]:before:h-px [&:not(:first-of-type)]:before:bg-line"
     >
       <div className="h-[94px] rounded-[9px] border border-line-2 overflow-hidden relative bg-cover bg-center shadow-[inset_0_0_0_1px_rgba(255,255,255,.06)] transition-transform duration-[250ms] ease-[var(--ease)] [background-image:var(--cov,var(--surface-2))] group-hover/pj:scale-[1.015] max-[760px]:h-[150px]" />
       <div>
@@ -34,9 +34,6 @@ export function ProjectCard({
             <span key={t}>{t}</span>
           ))}
         </div>
-      </div>
-      <div className="font-mono text-[11px] text-ink-3 tracking-[.8px] self-start pt-1.5 max-[760px]:pt-0">
-        {project.year}
       </div>
     </motion.button>
   );

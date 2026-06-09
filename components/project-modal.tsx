@@ -199,7 +199,9 @@ function Lightbox({
           <button
             type="button"
             aria-label="Previous image"
-            onClick={() => onChange((index - 1 + slides.length) % slides.length)}
+            onClick={() =>
+              onChange((index - 1 + slides.length) % slides.length)
+            }
             className={`${ROUND_BTN} absolute left-4 top-1/2 -translate-y-1/2 z-[3] w-11 h-11`}
           >
             <Chevron dir="left" />
@@ -339,7 +341,7 @@ export function ProjectModal({
                       </svg>{" "}
                       Tech Stack
                     </div>
-                    <div className="flex flex-wrap gap-[9px]">
+                    <div className="flex flex-wrap gap-[9px] mb-3">
                       {project.tech.map((t) => (
                         <span
                           key={t}
