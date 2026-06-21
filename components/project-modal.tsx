@@ -93,7 +93,7 @@ function Banner({
   }, [slides.length]);
 
   return (
-    <div className="relative h-[280px] w-full overflow-hidden max-[680px]:h-[220px]">
+    <div className="relative h-72 w-full overflow-hidden max-[680px]:h-56">
       <div
         ref={ref}
         className="flex h-full items-center gap-4 overflow-x-auto scroll-px-6 px-6 snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-[680px]:gap-3 max-[680px]:px-4 max-[680px]:scroll-px-4"
@@ -293,7 +293,7 @@ export function ProjectModal({
             />
             <div
               onClick={onClose}
-              className="absolute inset-0 overflow-y-auto flex justify-center pt-[46px] px-[22px] pb-[60px]"
+              className="absolute inset-0 overflow-y-auto flex justify-center pt-12 px-6 pb-16"
             >
               <motion.div
                 variants={panel}
@@ -301,13 +301,13 @@ export function ProjectModal({
                 aria-modal="true"
                 aria-labelledby="pmTitle"
                 onClick={(e) => e.stopPropagation()}
-                className="relative w-[min(860px,100%)] h-max m-auto bg-surface border border-line rounded-[18px] overflow-hidden shadow-[0_40px_90px_-28px_rgba(0,0,0,.55)]"
+                className="relative w-[min(860px,100%)] h-max m-auto bg-surface border border-line rounded-2xl overflow-hidden shadow-[0_40px_90px_-28px_rgba(0,0,0,.55)]"
               >
                 <button
                   type="button"
                   aria-label="Close"
                   onClick={onClose}
-                  className="absolute top-[18px] right-[18px] z-[4] w-[34px] h-[34px] rounded-[9px] border-0 cursor-pointer flex items-center justify-center text-white text-[17px] leading-none backdrop-blur-[6px] bg-[color-mix(in_oklch,#000_32%,transparent)] transition-[background-color,transform] duration-200 ease-[var(--ease)] hover:bg-[color-mix(in_oklch,#000_50%,transparent)] hover:scale-[1.06]"
+                  className="absolute top-5 right-5 z-[4] w-9 h-9 rounded-lg border-0 cursor-pointer flex items-center justify-center text-white text-lg leading-none backdrop-blur-[6px] bg-[color-mix(in_oklch,#000_32%,transparent)] transition-[background-color,transform] duration-200 ease-[var(--ease)] hover:bg-[color-mix(in_oklch,#000_50%,transparent)] hover:scale-[1.06]"
                 >
                   ✕
                 </button>
@@ -316,19 +316,19 @@ export function ProjectModal({
 
                 <motion.div
                   variants={content}
-                  className="px-14 pt-10 pb-[60px] relative max-[680px]:px-[26px] max-[680px]:pt-[34px] max-[680px]:pb-[44px]"
+                  className="px-14 pt-10 pb-16 relative max-[680px]:px-7 max-[680px]:pt-9 max-[680px]:pb-11"
                 >
                   <motion.h2
                     variants={item}
                     id="pmTitle"
-                    className="font-display font-bold text-[clamp(30px,5vw,46px)] tracking-[-1.4px] m-0 leading-[1.04]"
+                    className="font-display font-bold text-[clamp(30px,5vw,46px)] tracking-[-1.4px] m-0 leading-none"
                   >
                     {project.title}
                   </motion.h2>
                   <motion.div variants={item}>
-                    <div className="flex items-center gap-[7px] font-mono text-xs tracking-[.6px] uppercase text-ink-3 mt-[34px] mb-[14px]">
+                    <div className="flex items-center gap-2 font-mono text-xs tracking-[.6px] uppercase text-ink-3 mt-9 mb-3.5">
                       <svg
-                        className="w-[14px] h-[14px]"
+                        className="w-3.5 h-3.5"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -341,11 +341,11 @@ export function ProjectModal({
                       </svg>{" "}
                       Tech Stack
                     </div>
-                    <div className="flex flex-wrap gap-[9px] mb-3">
+                    <div className="flex flex-wrap gap-2.5 mb-3">
                       {project.tech.map((t) => (
                         <span
                           key={t}
-                          className="font-mono text-[12.5px] px-[13px] py-[7px] border border-line-2 rounded-lg bg-bg"
+                          className="font-mono text-xs px-3.5 py-2 border border-line-2 rounded-lg bg-bg"
                         >
                           {t}
                         </span>
@@ -356,7 +356,7 @@ export function ProjectModal({
                     {project.body.map((para, idx) => (
                       <p
                         key={idx}
-                        className="m-0 mb-[14px] last:mb-0 text-ink-2 text-[16.5px] leading-[1.65] max-w-[64ch]"
+                        className="m-0 mb-3.5 last:mb-0 text-ink-2 text-base leading-relaxed"
                         dangerouslySetInnerHTML={{ __html: para }}
                       />
                     ))}

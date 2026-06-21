@@ -35,20 +35,20 @@ function Role({
   children: ReactNode;
 }) {
   return (
-    <div className="grid grid-cols-[180px_1fr] gap-[26px] px-4 py-5 rounded-xl transition-colors duration-200 ease-[var(--ease)] hover:bg-surface max-[760px]:grid-cols-1 max-[760px]:gap-1.5 max-[760px]:px-0">
-      <div className="font-mono text-[11px] tracking-[1.2px] uppercase text-ink-3 pt-1.5 whitespace-nowrap">
+    <div className="grid grid-cols-[180px_1fr] gap-7 px-4 py-5 rounded-xl transition-colors duration-200 ease-[var(--ease)] hover:bg-surface max-[760px]:grid-cols-1 max-[760px]:gap-1.5 max-[760px]:px-0">
+      <div className="font-mono text-xs tracking-[1.2px] uppercase text-ink-3 pt-1.5 whitespace-nowrap">
         {date}
       </div>
       <div>
-        <div className="flex items-center gap-2.5 font-display text-[19px] font-semibold tracking-[-.2px]">
+        <div className="flex items-center gap-2.5 font-display text-xl font-semibold tracking-[-.2px]">
           {title}
           {now && (
-            <span className="font-mono text-[9px] tracking-[1px] uppercase text-ink bg-accent rounded-[5px] px-[7px] py-[3px]">
+            <span className="font-mono text-xs tracking-[1px] uppercase text-ink bg-accent rounded-md px-2 py-1">
               Now
             </span>
           )}
         </div>
-        <div className="text-ink-2 mt-2 text-[16px] leading-[1.55] max-w-[62ch]">
+        <div className="text-ink-2 mt-2 text-base leading-normal">
           {children}
         </div>
       </div>
@@ -84,7 +84,8 @@ export default function Home() {
     const heroIo = new IntersectionObserver(
       (es) =>
         es.forEach(
-          (e) => e.isIntersecting && e.intersectionRatio > 0.5 && moveOrb("top"),
+          (e) =>
+            e.isIntersecting && e.intersectionRatio > 0.5 && moveOrb("top"),
         ),
       { threshold: [0.5] },
     );
@@ -109,18 +110,18 @@ export default function Home() {
         {/* HERO */}
         <section
           id="hero"
-          className="py-[90px] border-b border-line max-[760px]:pt-[84px] max-[760px]:pb-[70px]"
+          className="py-24 border-b border-line max-[760px]:pt-20 max-[760px]:pb-16"
         >
           <motion.div className={WRAP} variants={stagger} {...inView}>
             <motion.div
               variants={fadeUp}
-              className="font-mono text-xs tracking-[2px] uppercase text-ink-3 mb-[26px]"
+              className="font-mono text-xs tracking-[2px] uppercase text-ink-3 mb-7"
             >
               Hello, my name is
             </motion.div>
             <motion.h1
               variants={fadeUp}
-              className="font-display font-bold text-[clamp(52px,9vw,108px)] leading-[.94] tracking-[-3px] m-0"
+              className="font-display font-bold text-[clamp(52px,9vw,108px)] leading-none tracking-[-3px] m-0"
             >
               Indra
               <br />
@@ -128,13 +129,13 @@ export default function Home() {
             </motion.h1>
             <motion.div
               variants={fadeUp}
-              className="font-display font-medium text-[clamp(20px,3vw,30px)] tracking-[-.4px] mt-[22px] text-ink-2"
+              className="font-display font-medium text-[clamp(20px,3vw,30px)] tracking-[-.4px] mt-6 text-ink-2"
             >
               Sr. Frontend Engineer
             </motion.div>
             <motion.p
               variants={fadeUp}
-              className="text-[clamp(20px,2.6vw,27px)] leading-[1.4] font-light mt-[30px] max-w-[30ch]"
+              className="text-[clamp(20px,2.6vw,27px)] leading-snug font-light mt-8 max-w-[30ch]"
             >
               I build <Mark>accessible</Mark> interfaces and{" "}
               <Mark>user-centered</Mark>{" "}
@@ -145,7 +146,7 @@ export default function Home() {
             </motion.p>
             <motion.div
               variants={fadeUp}
-              className="flex gap-[14px] flex-wrap mt-[42px]"
+              className="flex gap-3.5 flex-wrap mt-11"
             >
               <Button href="#contact" variant="primary" icon="↗">
                 Get in touch
@@ -166,7 +167,7 @@ export default function Home() {
             <motion.div variants={stagger} className="grid grid-cols-1 gap-6">
               <motion.p
                 variants={fadeUp}
-                className="m-0 text-[19px] leading-[1.66] text-ink-2"
+                className="m-0 text-xl leading-relaxed text-ink-2"
               >
                 I&apos;m a frontend engineer with <b>7+ years</b> of experience
                 building <Mark>accessible</Mark>, high-performance web
@@ -176,7 +177,7 @@ export default function Home() {
               </motion.p>
               <motion.p
                 variants={fadeUp}
-                className="m-0 text-[19px] leading-[1.66] text-ink-2"
+                className="m-0 text-xl leading-relaxed text-ink-2"
               >
                 Currently, I&apos;m the <b>Frontend Lead at Appliance.io</b>, a
                 SaaS platform for appliance retailers. I shape our frontend
@@ -186,7 +187,7 @@ export default function Home() {
               </motion.p>
               <motion.p
                 variants={fadeUp}
-                className="m-0 text-[19px] leading-[1.66] text-ink-2"
+                className="m-0 text-xl leading-relaxed text-ink-2"
               >
                 Before that, I spent years crafting product UIs across startups
                 and studios with Vue, Nuxt, React, and Next.js — experiences
@@ -236,14 +237,18 @@ export default function Home() {
               <SectionHead num="03">Experience</SectionHead>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="mb-[46px] last:mb-0">
-              <div className="font-display text-[22px] font-semibold tracking-[-.3px] pb-3 border-b border-line mb-2.5 flex justify-between items-baseline gap-3">
+            <motion.div variants={fadeUp} className="mb-12 last:mb-0">
+              <div className="font-display text-2xl font-semibold tracking-[-.3px] pb-3 border-b border-line mb-2.5 flex justify-between items-baseline gap-3">
                 Appliance.io{" "}
-                <span className="font-mono text-[11px] text-ink-3 tracking-[.5px] font-normal">
+                <span className="font-mono text-xs text-ink-3 tracking-[.5px] font-normal">
                   Full-time · 7 yrs 7 mos
                 </span>
               </div>
-              <Role date="Mar 2026 — Present" title="Product Engineering Lead" now>
+              <Role
+                date="Mar 2026 — Present"
+                title="Product Engineering Lead"
+                now
+              >
                 Leading product engineering across the platform, aligning
                 frontend direction with product strategy.
               </Role>
@@ -259,10 +264,10 @@ export default function Home() {
               </Role>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="mb-[46px] last:mb-0">
-              <div className="font-display text-[22px] font-semibold tracking-[-.3px] pb-3 border-b border-line mb-2.5 flex justify-between items-baseline gap-3">
+            <motion.div variants={fadeUp} className="mb-12 last:mb-0">
+              <div className="font-display text-2xl font-semibold tracking-[-.3px] pb-3 border-b border-line mb-2.5 flex justify-between items-baseline gap-3">
                 Trys{" "}
-                <span className="font-mono text-[11px] text-ink-3 tracking-[.5px] font-normal">
+                <span className="font-mono text-xs text-ink-3 tracking-[.5px] font-normal">
                   May 2017 — Nov 2018
                 </span>
               </div>
@@ -287,28 +292,29 @@ export default function Home() {
         </section>
 
         {/* CONTACT */}
-        <section className="pt-[90px] pb-[100px]" id="contact">
+        <section className="pt-24 pb-24" id="contact">
           <motion.div className={WRAP} variants={staggerDelayed} {...inView}>
             <motion.div variants={fadeUp}>
               <SectionHead num="05">Get in touch</SectionHead>
             </motion.div>
             <motion.p
               variants={fadeUp}
-              className="text-[21px] leading-[1.6] text-ink-2 max-w-[54ch]"
+              className="text-xl leading-relaxed text-ink-2 max-w-[54ch]"
             >
-              I&apos;m open to new roles and interesting projects. Have something
-              in mind? Drop me a line — I&apos;ll get back to you soon.
+              I&apos;m open to new roles and interesting projects. Have
+              something in mind? Drop me a line — I&apos;ll get back to you
+              soon.
             </motion.p>
             <motion.a
               variants={fadeUp}
-              className="inline-block font-display font-bold text-[clamp(26px,4.2vw,44px)] tracking-[-1.4px] no-underline mt-[26px] leading-[1.1] text-ink"
+              className="inline-block font-display font-bold text-[clamp(26px,4.2vw,44px)] tracking-[-1.4px] no-underline mt-7 leading-none text-ink"
               href={`mailto:${EMAIL}`}
             >
               <Mark email>{EMAIL}</Mark>
             </motion.a>
             <motion.div
               variants={fadeUp}
-              className="flex flex-wrap gap-x-[30px] gap-y-[14px] mt-[46px]"
+              className="flex flex-wrap gap-x-8 gap-y-3.5 mt-12"
             >
               <a className={CT_LINK} href="#">
                 <span className={CT_LBL}>LinkedIn</span> /in/indra-ardiansah ↗
@@ -326,9 +332,9 @@ export default function Home() {
           </motion.div>
         </section>
 
-        <footer className="pt-[34px] pb-[50px]">
+        <footer className="pt-9 pb-12">
           <div
-            className={`${WRAP} flex justify-between flex-wrap gap-[14px] font-mono text-[11.5px] text-ink-3`}
+            className={`${WRAP} flex justify-between flex-wrap gap-3.5 font-mono text-xs text-ink-3`}
           >
             <span>© 2026 Indra Ardiansah</span>
             <span>Designed &amp; built from scratch</span>

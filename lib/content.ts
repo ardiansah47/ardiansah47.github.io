@@ -12,6 +12,26 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: "adsinsight",
+    title: "AdsInsight",
+    cover: 'url("/projects/adsinsight/1.webp")',
+    desc: "AI-driven analytics platform that helps marketers understand and optimize their Google Ads performance.",
+    tech: ["Vue.js", "Pinia", "Express.js", "MongoDB", "Google Ads API"],
+    gallery: [
+      "/projects/adsinsight/1.webp",
+      "/projects/adsinsight/4.webp",
+      "/projects/adsinsight/5.webp",
+      "/projects/adsinsight/2.webp",
+      "/projects/adsinsight/3.webp",
+      "/projects/adsinsight/6.webp",
+    ],
+    body: [
+      "AdsInsight is an <b>AI-driven analytics platform</b> designed to help marketers understand and optimize their Google Ads performance. It integrates Google Ads data with a custom AI agent, surfacing actionable insights, performance breakdowns, and strategic recommendations tailored to each campaign.",
+      "As the <b>Full-Stack Developer</b> on the project, I worked across the backend and frontend:",
+      "• Built the backend API with <b>Express.js, MongoDB, and TypeScript</b>, including Google Ads data integration and AI-assistant endpoints.<br>• Developed frontend features with <b>Vue.js, Tailwind CSS, and Pinia</b> for state management.<br>• Implemented the <b>AI chat interface</b> and the dashboards that display real-time Google Ads insights.<br>• Ensured smooth communication between the AI engine, backend services, and the frontend.",
+    ],
+  },
+  {
     id: "exchange-pos",
     title: "Exchange Point of Sales",
     cover: 'url("/projects/exchange-pos/1.webp")',
@@ -53,7 +73,7 @@ export const skills: { label: string; items: string[] }[] = [
   { label: "State & Data", items: ["Vuex", "Pinia", "Zustand", "REST API"] },
   {
     label: "Tooling & QA",
-    items: ["Storybook", "Vitest", "Playwright", "Cypress", "Sentry", "Git"],
+    items: ["Storybook", "Jest", "Vitest", "Playwright", "Cypress", "Sentry", "Git"],
   },
 ];
 

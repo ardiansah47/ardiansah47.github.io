@@ -17,7 +17,7 @@ export function Mark({
   email?: boolean;
 }) {
   return (
-    <span className="relative whitespace-nowrap px-[3px] text-ink">
+    <span className="relative whitespace-nowrap px-1 text-ink">
       <motion.span
         aria-hidden
         className={`absolute inset-x-0 -z-[1] origin-left rounded-[2px_6px_3px_7px] bg-accent ${

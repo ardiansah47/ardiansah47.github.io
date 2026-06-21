@@ -38,7 +38,7 @@ export function ThemeToggle() {
       aria-label="Toggle dark mode"
       title="Toggle theme"
       onClick={toggle}
-      className="cursor-pointer leading-none m-0 p-0 flex items-center justify-center w-[30px] h-[30px] text-ink-2 border-0 bg-transparent rounded-lg transition-colors duration-[250ms] ease-[var(--ease)] hover:text-ink hover:bg-surface-2 focus-visible:[outline:2px_solid_var(--accent-ink)] focus-visible:outline-offset-2"
+      className="cursor-pointer leading-none m-0 p-0 flex items-center justify-center w-8 h-8 text-ink-2 border-0 bg-transparent rounded-lg transition-colors duration-[250ms] ease-[var(--ease)] hover:text-ink hover:bg-surface-2 focus-visible:[outline:2px_solid_var(--accent-ink)] focus-visible:outline-offset-2"
     >
       <svg
         className="block"

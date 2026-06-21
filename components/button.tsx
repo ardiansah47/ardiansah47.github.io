@@ -5,7 +5,7 @@ import type {
 } from "react";
 
 const base =
-  "group inline-flex items-center gap-[9px] font-mono text-[13px] no-underline px-5 py-[13px] rounded-[11px] border-[1.5px] border-ink tracking-[.3px] transition-all duration-200 ease-[var(--ease)]";
+  "group inline-flex items-center gap-2.5 font-mono text-sm no-underline px-5 py-3.5 rounded-xl border-[1.5px] border-ink tracking-[.3px] transition-all duration-200 ease-[var(--ease)]";
 
 const variants = {
   primary:
@@ -14,7 +14,7 @@ const variants = {
 } as const;
 
 const arrow =
-  "transition-transform duration-200 ease-[var(--ease)] group-hover:translate-x-[3px] group-hover:-translate-y-[3px]";
+  "transition-transform duration-200 ease-[var(--ease)] group-hover:translate-x-1 group-hover:-translate-y-1";
 
 type Variant = keyof typeof variants;
 

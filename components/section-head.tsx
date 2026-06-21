@@ -9,8 +9,8 @@ export function SectionHead({
   children: ReactNode;
 }) {
   return (
-    <div className="flex items-baseline gap-[18px] mb-10">
-      <span className="font-mono text-[13px] text-accent-ink tracking-[1px]">
+    <div className="flex items-baseline gap-5 mb-10">
+      <span className="font-mono text-sm text-accent-ink tracking-[1px]">
         {num}
       </span>
       <h2 className="font-display font-semibold text-[clamp(28px,4vw,40px)] tracking-[-1px] m-0">

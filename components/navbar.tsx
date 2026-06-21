@@ -89,10 +89,10 @@ export function Navbar({
         className="group/hdr sticky top-0 z-40 bg-transparent transition-[padding] duration-300 ease-[var(--ease)]"
       >
         <div
-          className={`${WRAP} flex items-center justify-center max-[760px]:justify-end gap-3 h-[74px] transition-[height] duration-300 ease-[var(--ease)] group-[.scrolled]/hdr:h-[66px]`}
+          className={`${WRAP} flex items-center justify-center max-[760px]:justify-end gap-3 h-20 transition-[height] duration-300 ease-[var(--ease)] group-[.scrolled]/hdr:h-16`}
         >
           {/* desktop pill */}
-          <nav className="sect flex items-center gap-6 pl-[22px] pr-3 py-2 rounded-[30px] border border-transparent transition-[background-color,border-color,box-shadow,padding,backdrop-filter] duration-[350ms] ease-[var(--ease)] group-[.scrolled]/hdr:bg-[color-mix(in_oklch,var(--bg)_90%,transparent)] group-[.scrolled]/hdr:border-line group-[.scrolled]/hdr:shadow-[0_8px_26px_-14px_rgba(0,0,0,.4)] group-[.scrolled]/hdr:backdrop-blur-[14px] max-[760px]:hidden">
+          <nav className="sect flex items-center gap-6 pl-6 pr-3 py-2 rounded-4xl border border-transparent transition-[background-color,border-color,box-shadow,padding,backdrop-filter] duration-[350ms] ease-[var(--ease)] group-[.scrolled]/hdr:bg-[color-mix(in_oklch,var(--bg)_90%,transparent)] group-[.scrolled]/hdr:border-line group-[.scrolled]/hdr:shadow-[0_8px_26px_-14px_rgba(0,0,0,.4)] group-[.scrolled]/hdr:backdrop-blur-[14px] max-[760px]:hidden">
             {items.map((item) => (
               <a key={item.id} href={`#${item.id}`} className={LINK}>
                 <span className="text-accent-ink">{item.n}</span> {item.label}
@@ -100,7 +100,7 @@ export function Navbar({
             ))}
             {right ? (
               <>
-                <span className="w-px h-[18px] bg-line-2 flex-none" />
+                <span className="w-px h-5 bg-line-2 flex-none" />
                 {right}
               </>
             ) : null}
@@ -112,17 +112,17 @@ export function Navbar({
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            className="hidden max-[760px]:flex flex-col items-center justify-center gap-[5px] w-[40px] h-[40px] -mr-1.5 cursor-pointer text-ink"
+            className="hidden max-[760px]:flex flex-col items-center justify-center gap-1.5 w-10 h-10 -mr-1.5 cursor-pointer text-ink"
           >
             <motion.span
               aria-hidden
-              className="block h-[1.5px] w-[22px] rounded bg-current origin-center"
+              className="block h-[1.5px] w-6 rounded bg-current origin-center"
               animate={open ? { rotate: 45, y: 3.5 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.25, ease: EASE }}
             />
             <motion.span
               aria-hidden
-              className="block h-[1.5px] w-[22px] rounded bg-current origin-center"
+              className="block h-[1.5px] w-6 rounded bg-current origin-center"
               animate={open ? { rotate: -45, y: -3.5 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.25, ease: EASE }}
             />
@@ -150,14 +150,14 @@ export function Navbar({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.98 }}
               transition={{ duration: 0.22, ease: EASE }}
-              className="absolute left-[22px] right-[22px] top-[78px] origin-top overflow-hidden rounded-[18px] border border-line bg-[color-mix(in_oklch,var(--bg)_92%,transparent)] backdrop-blur-[16px] shadow-[0_16px_50px_-16px_rgba(0,0,0,.4)] p-2"
+              className="absolute left-6 right-6 top-20 origin-top overflow-hidden rounded-2xl border border-line bg-[color-mix(in_oklch,var(--bg)_92%,transparent)] backdrop-blur-[16px] shadow-[0_16px_50px_-16px_rgba(0,0,0,.4)] p-2"
             >
               {items.map((item) => (
                 <a
                   key={item.id}
                   href={`#${item.id}`}
                   onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-[12px] font-mono text-sm text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink"
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl font-mono text-sm text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink"
                 >
                   <span className="text-accent-ink">{item.n}</span> {item.label}
                 </a>
