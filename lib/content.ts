@@ -32,6 +32,26 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: "website-builder",
+    title: "Appliance.io Website Builder",
+    cover: 'url("/projects/website-builder/1.webp")',
+    desc: "Website builder with a reusable design system, layers and pages management, per-page SEO, and integrated auth, payments, and subscriptions.",
+    tech: ["Nuxt.js", "Tailwind CSS", "TypeScript", "Vitest", "Storybook", "REST API"],
+    gallery: [
+      "/projects/website-builder/1.webp",
+      "/projects/website-builder/2.webp",
+      "/projects/website-builder/3.webp",
+      "/projects/website-builder/4.webp",
+      "/projects/website-builder/5.webp",
+      "/projects/website-builder/6.webp",
+    ],
+    body: [
+      "I contributed to <b>Appliance.io's Website Builder</b> as both a <b>Product Engineer</b> and <b>Frontend Engineer</b>.",
+      "<b>Product:</b> Worked ahead of development to turn UI/UX designs and product requirements into complete, buildable specs — sharpening the designs, breaking work into a clear task format, and resolving every open requirement before coding started. Focused scope on real business value, avoiding bloat and rework.",
+      "<b>Frontend:</b> Helped the team build a reusable design-system UI that kept the product consistent and shippable. My main focus was implementing the <b>layers and pages management</b> with per-page SEO and the editing and properties panels, and ensuring the application felt smooth and consistent through <b>motion-v</b> animations. I also led key integrations — bringing in <b>authentication</b> and the <b>payment and subscription flow</b> with checkout verification — to help deliver a complete, production-ready product.",
+    ],
+  },
+  {
     id: "exchange-pos",
     title: "Exchange Point of Sales",
     cover: 'url("/projects/exchange-pos/1.webp")',
