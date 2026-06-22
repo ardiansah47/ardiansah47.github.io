@@ -202,29 +202,39 @@ export default function Home() {
         <section className={SECTION} id="skills">
           <motion.div className={WRAP} variants={staggerDelayed} {...inView}>
             <motion.div variants={fadeUp}>
-              <SectionHead num="02">Skills &amp; Stack</SectionHead>
+              <SectionHead num="02">Skills</SectionHead>
             </motion.div>
-            <motion.div
-              variants={stagger}
-              className="flex flex-col gap-6 max-[760px]:gap-0 max-[760px]:divide-y max-[760px]:divide-line"
+            <motion.p
+              variants={fadeUp}
+              className="text-lg leading-relaxed text-ink-2 -mt-2 mb-8"
             >
-              {skills.map((grp) => (
-                <motion.div
-                  key={grp.label}
+              The tools I reach for most when building products, from the
+              frameworks that shape the UI to the testing and tooling that keep
+              it dependable. Always a few more in progress.
+            </motion.p>
+            <motion.div variants={stagger} className="flex flex-wrap gap-2.5">
+              {skills.map((s) => (
+                <motion.span
+                  key={s.name}
                   variants={fadeUp}
-                  className="grid grid-cols-[170px_1fr] gap-9 items-baseline max-[760px]:grid-cols-1 max-[760px]:gap-2.5 max-[760px]:py-5 max-[760px]:[&:first-child]:pt-0 max-[760px]:[&:last-child]:pb-0"
+                  className={`${PILL} inline-flex items-center gap-2`}
                 >
-                  <div className="font-mono text-xs tracking-[1.5px] uppercase text-ink-3 pt-2 max-[760px]:pt-0">
-                    {grp.label}
-                  </div>
-                  <div className="flex flex-wrap gap-2.5">
-                    {grp.items.map((item) => (
-                      <span key={item} className={PILL}>
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
+                  {s.icon && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={`/icons/${s.icon}`}
+                      alt={s.name}
+                      aria-hidden
+                      width={16}
+                      height={16}
+                      className={`h-4 w-4 ${s.invertOnDark ? "dark:invert" : ""}`}
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                    />
+                  )}
+                  {s.name}
+                </motion.span>
               ))}
             </motion.div>
           </motion.div>
@@ -299,7 +309,7 @@ export default function Home() {
             </motion.div>
             <motion.p
               variants={fadeUp}
-              className="text-xl leading-relaxed text-ink-2 max-w-[54ch]"
+              className="text-xl leading-relaxed text-ink-2"
             >
               I&apos;m open to new roles and interesting projects. Have
               something in mind? Drop me a line — I&apos;ll get back to you

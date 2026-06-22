@@ -83,18 +83,32 @@ export const navItems: NavItem[] = [
   { id: "contact", n: "05", label: "Contact" },
 ];
 
-export const skills: { label: string; items: string[] }[] = [
-  {
-    label: "Frameworks",
-    items: ["Vue.js", "Nuxt.js", "React.js", "Next.js", "Qwik.js"],
-  },
-  { label: "Language", items: ["JavaScript", "TypeScript"] },
-  { label: "Styling", items: ["Tailwind CSS", "Sass", "PostCSS", "BEM"] },
-  { label: "State & Data", items: ["Vuex", "Pinia", "Zustand", "REST API"] },
-  {
-    label: "Tooling & QA",
-    items: ["Storybook", "Jest", "Vitest", "Playwright", "Cypress", "Sentry", "Git"],
-  },
+// icon = file in /public/icons/. A missing file just hides (text-only pill).
+// invertOnDark flips near-black logos for dark theme.
+export const skills: { name: string; icon?: string; invertOnDark?: boolean }[] = [
+  { name: "Vue.js", icon: "vue.svg" },
+  { name: "Nuxt.js", icon: "nuxt.svg" },
+  { name: "React.js", icon: "react.svg" },
+  { name: "Next.js", icon: "next.svg", invertOnDark: true },
+  { name: "Qwik.js", icon: "qwik.svg" },
+  { name: "JavaScript", icon: "javascript.svg" },
+  { name: "TypeScript", icon: "typescript.svg" },
+  { name: "Tailwind CSS", icon: "tailwindcss.svg" },
+  { name: "Sass", icon: "sass.svg" },
+  { name: "PostCSS", icon: "postcss.svg" },
+  { name: "Vuex", icon: "vuex.svg" },
+  { name: "Pinia", icon: "pinia.svg" },
+  { name: "Zustand", icon: "zustand.svg" },
+  { name: "Node.js", icon: "nodejs.svg" },
+  { name: "Express.js", icon: "express.svg", invertOnDark: true },
+  { name: "MongoDB", icon: "mongodb.svg" },
+  { name: "Storybook", icon: "storybook.svg" },
+  { name: "Jest", icon: "jest.svg" },
+  { name: "Vitest", icon: "vitest.svg" },
+  { name: "Playwright", icon: "playwright.svg" },
+  { name: "Cypress", icon: "cypress.svg" },
+  { name: "Sentry", icon: "sentry.svg" },
+  { name: "Git", icon: "git.svg" },
 ];
 
 export const EMAIL = "ardiansahindra7@gmail.com";
