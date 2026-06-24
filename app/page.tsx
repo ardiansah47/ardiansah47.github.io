@@ -151,7 +151,12 @@ export default function Home() {
               <Button href="#contact" variant="primary" icon="↗">
                 Get in touch
               </Button>
-              <Button href="#" variant="ghost" icon="↓">
+              <Button
+                href="/Indra-Ardiansah-Resume.pdf"
+                download
+                variant="ghost"
+                icon="↓"
+              >
                 Download CV
               </Button>
             </motion.div>
