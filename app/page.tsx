@@ -179,20 +179,12 @@ export default function Home() {
                 variants={fadeUp}
                 className="m-0 text-xl leading-relaxed text-ink-2"
               >
-                Currently, I&apos;m the <b>Frontend Lead at Appliance.io</b>, a
-                SaaS platform for appliance retailers. I shape our frontend
-                architecture and design system — leading work across components,
-                tooling, and patterns to keep our products fast, consistent, and
-                accessible.
-              </motion.p>
-              <motion.p
-                variants={fadeUp}
-                className="m-0 text-xl leading-relaxed text-ink-2"
-              >
-                Before that, I spent years crafting product UIs across startups
-                and studios with Vue, Nuxt, React, and Next.js — experiences
-                that shaped how I build products that are both{" "}
-                <b>well-crafted</b> and widely usable.
+                Currently, I&apos;m the{" "}
+                <b>Product Engineering Lead at Appliance.io</b>, a SaaS platform
+                for appliance retailers. I own features end-to-end, turning
+                business requirements into clear, predictable work and aligning
+                frontend direction with product strategy to keep our products
+                fast, consistent, and accessible.
               </motion.p>
             </motion.div>
           </motion.div>
@@ -255,22 +247,34 @@ export default function Home() {
                 </span>
               </div>
               <Role
-                date="Mar 2026 — Present"
+                date="Mar 2026 – Present"
                 title="Product Engineering Lead"
                 now
               >
-                Leading product engineering across the platform, aligning
-                frontend direction with product strategy.
+                Own features end-to-end, turning business requirements into
+                clear user flows and resolving ambiguity before any code is
+                written. Own the task breakdown through{" "}
+                <b>user stories</b>, keeping work small, predictable, and
+                development-ready with clear acceptance criteria. Lead
+                product-facing technical discussions and communicate trade-offs.
               </Role>
-              <Role date="Sep 2022 — Mar 2026" title="Frontend Lead">
-                Led <b>3 engineers</b> and owned frontend architecture and the
-                design system. Drove the <b>Vue 3 + TypeScript + Vite</b>{" "}
-                migration, lifting build performance and DX by <b>50%</b>.
+              <Role date="Sep 2022 – Mar 2026" title="Frontend Lead">
+                Led <b>3 frontend engineers</b> and owned the frontend
+                architecture behind core platform features shared across
+                products. Raised code quality and release stability through
+                testing, ESLint, Prettier, and CI/CD, while mentoring the team
+                and establishing development best practices. Drove the migration
+                from <b>Vue 2 + Nuxt</b> to <b>Vue 3 + TypeScript + Vite</b>,
+                improving build performance and developer experience by{" "}
+                <Mark>50%</Mark>.
               </Role>
-              <Role date="Dec 2018 — Aug 2024" title="Frontend Developer">
-                Built core platform features and a reusable design system that
-                accelerated delivery by <b>40%</b>, with a focus on
-                responsiveness and cross-browser support.
+              <Role date="Dec 2018 – Aug 2024" title="Frontend Developer">
+                Built responsive, user-friendly features for the core platform
+                and a reusable design system that accelerated delivery by{" "}
+                <Mark>40%</Mark>. Integrated RESTful APIs, improved mobile and
+                cross-browser support, and worked with product, design, and
+                backend to ship production-ready work, resolving bugs and
+                technical issues to keep the experience stable.
               </Role>
             </motion.div>
 
@@ -278,12 +282,13 @@ export default function Home() {
               <div className="font-display text-2xl font-semibold tracking-[-.3px] pb-3 border-b border-line mb-2.5 flex justify-between items-baseline gap-3">
                 Trys{" "}
                 <span className="font-mono text-xs text-ink-3 tracking-[.5px] font-normal">
-                  May 2017 — Nov 2018
+                  May 2017 – Nov 2018
                 </span>
               </div>
-              <Role date="2017 — 2018" title="Frontend Developer">
-                Designed and built website UIs focused on visually appealing,
-                user-friendly experiences.
+              <Role date="2017 – 2018" title="Frontend Developer">
+                Designed and built website UIs, focusing on visually appealing,
+                user-friendly experiences that translated designs into clean,
+                responsive interfaces.
               </Role>
             </motion.div>
           </motion.div>
@@ -295,6 +300,12 @@ export default function Home() {
             <motion.div variants={fadeUp}>
               <SectionHead num="04">Projects</SectionHead>
             </motion.div>
+            <motion.p
+              variants={fadeUp}
+              className="text-lg leading-relaxed text-ink-2 -mt-2 mb-8"
+            >
+              A selection of projects I&apos;ve worked on.
+            </motion.p>
             {projects.map((p) => (
               <ProjectCard key={p.id} project={p} onOpen={setActive} />
             ))}
@@ -312,7 +323,7 @@ export default function Home() {
               className="text-xl leading-relaxed text-ink-2"
             >
               I&apos;m open to new roles and interesting projects. Have
-              something in mind? Drop me a line — I&apos;ll get back to you
+              something in mind? Drop me a line, I&apos;ll get back to you
               soon.
             </motion.p>
             <motion.a
@@ -326,14 +337,11 @@ export default function Home() {
               variants={fadeUp}
               className="flex flex-wrap gap-x-8 gap-y-3.5 mt-12"
             >
-              <a className={CT_LINK} href="#">
-                <span className={CT_LBL}>LinkedIn</span> /in/indra-ardiansah ↗
+              <a className={CT_LINK} href="https://www.linkedin.com/in/indraardiansah">
+                <span className={CT_LBL}>LinkedIn</span> /in/indraardiansah ↗
               </a>
-              <a className={CT_LINK} href="#">
-                <span className={CT_LBL}>GitHub</span> @indra ↗
-              </a>
-              <a className={CT_LINK} href="#">
-                <span className={CT_LBL}>X / Twitter</span> @indra ↗
+              <a className={CT_LINK} href="https://github.com/ardiansah47">
+                <span className={CT_LBL}>GitHub</span> @ardiansah47 ↗
               </a>
               <a className={CT_LINK} href="#">
                 <span className={CT_LBL}>CV</span> download PDF ↓

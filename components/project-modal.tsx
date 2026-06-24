@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion, type Variants } from "motion/react";
-import type { Project } from "@/lib/content";
+import { skillIcons, type Project } from "@/lib/content";
 
 const EASE = [0.22, 0.61, 0.36, 1] as [number, number, number, number];
 
@@ -342,14 +342,31 @@ export function ProjectModal({
                       Tech Stack
                     </div>
                     <div className="flex flex-wrap gap-2.5 mb-3">
-                      {project.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="font-mono text-xs px-3.5 py-2 border border-line-2 rounded-lg bg-bg"
-                        >
-                          {t}
-                        </span>
-                      ))}
+                      {project.tech.map((t) => {
+                        const ic = skillIcons[t];
+                        return (
+                          <span
+                            key={t}
+                            className="inline-flex items-center gap-2 font-mono text-xs px-3.5 py-2 border border-line-2 rounded-lg bg-bg"
+                          >
+                            {ic && (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img
+                                src={`/icons/${ic.icon}`}
+                                alt=""
+                                aria-hidden
+                                width={16}
+                                height={16}
+                                className={`h-4 w-4 ${ic.invertOnDark ? "dark:invert" : ""}`}
+                                onError={(e) => {
+                                  e.currentTarget.style.display = "none";
+                                }}
+                              />
+                            )}
+                            {t}
+                          </span>
+                        );
+                      })}
                     </div>
                   </motion.div>
                   <motion.div variants={item}>
