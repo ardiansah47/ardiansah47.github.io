@@ -26,7 +26,7 @@ export function ProjectCard({
         <div className="font-display text-2xl font-semibold tracking-[-.4px] flex items-center gap-2.5">
           {project.title}
         </div>
-        <div className="text-ink-2 mt-2 text-base leading-normal max-w-[56ch]">
+        <div className="text-ink-2 mt-2 text-base leading-normal">
           {project.desc}
         </div>
         <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3 font-mono text-xs text-ink-3 tracking-[.4px]">
