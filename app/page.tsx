@@ -245,9 +245,9 @@ export default function Home() {
             </motion.div>
 
             <motion.div variants={fadeUp} className="mb-12 last:mb-0">
-              <div className="font-display text-2xl font-semibold tracking-[-.3px] pb-3 border-b border-line mb-2.5 flex justify-between items-baseline gap-3">
+              <div className="font-display text-2xl font-semibold tracking-[-.3px] pb-3 border-b border-line mb-2.5 flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 sm:gap-3">
                 Appliance.io{" "}
-                <span className="font-mono text-xs text-ink-3 tracking-[.5px] font-normal">
+                <span className="font-mono text-xs text-ink-3 tracking-[.5px] font-normal whitespace-nowrap">
                   Full-time · 7 yrs 7 mos
                 </span>
               </div>
@@ -301,13 +301,17 @@ export default function Home() {
 
         {/* PROJECTS */}
         <section className={SECTION} id="projects">
-          <motion.div className={WRAP} variants={staggerDelayed} {...inView}>
-            <motion.div variants={fadeUp}>
+          <motion.div
+            className="max-w-[var(--maxw)] mx-auto px-8 relative z-[2] max-[760px]:px-0"
+            variants={staggerDelayed}
+            {...inView}
+          >
+            <motion.div variants={fadeUp} className="max-[760px]:px-6">
               <SectionHead num="04">Projects</SectionHead>
             </motion.div>
             <motion.p
               variants={fadeUp}
-              className="text-lg leading-relaxed text-ink-2 -mt-2 mb-8"
+              className="text-lg leading-relaxed text-ink-2 -mt-2 mb-8 max-[760px]:px-6"
             >
               A selection of projects I&apos;ve worked on.
             </motion.p>
